@@ -122,7 +122,6 @@ def main():
             args=sft_config,
             peft_config=lora_config,
             formatting_func=formatting_prompts_func,
-            data_collator=collator,
             )
 
     # Fine-tune the model
