@@ -289,11 +289,11 @@ if __name__ == "__main__":
     # Données
     parser.add_argument(
             '--normalize', action='store_true', default=False,
-            help='Normaliser les features (recommandé !)'
+            help='Normaliser les features'
             )
     parser.add_argument(
             '--shuffle', action='store_true', default=False,
-            help='Mélanger les données (recommandé !)'
+            help='Mélanger les données'
             )
 
     # Modèle
@@ -302,13 +302,13 @@ if __name__ == "__main__":
             help='Dimension des couches cachées'
             )
     parser.add_argument(
-            '--num_layers', type=int, default=5,
+            '--num_layers', type=int, default=10,
             help='Nombre de couches cachées'
             )
 
     # Entraînement
     parser.add_argument(
-            '--epochs', type=int, default=100,
+            '--epochs', type=int, default=5,
             help='Nombre d\'epochs'
             )
     parser.add_argument(
@@ -316,7 +316,7 @@ if __name__ == "__main__":
             help='Taille du batch'
             )
     parser.add_argument(
-            '--learning_rate', type=float, default=0.001,
+            '--learning_rate', type=float, default=0.1,
             help='Learning rate'
             )
     parser.add_argument(

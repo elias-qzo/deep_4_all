@@ -85,7 +85,7 @@ Les Sages de la Guilde ont étudié des milliers de quêtes et ont découvert le
 #### Dans les Terres Maudites (test secret - SPOILER ENSEIGNANT)
 
 <details>
-<summary>🔒 Cliquez pour révéler (réservé à l'enseignant)</summary>
+<summary>🔒 parchemin des vieux sage</summary>
 
 Les Terres Maudites obéissent à des lois **inversées**. La magie noire qui imprègne ces lieux change tout...
 

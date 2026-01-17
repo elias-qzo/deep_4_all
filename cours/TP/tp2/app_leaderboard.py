@@ -266,6 +266,7 @@ def load_model_from_file(model_path: str, input_dim: int = 8) -> tuple:
 
 def evaluate_model(model: nn.Module, data_path: str) -> dict:
     """Evalue un modele sur un dataset."""
+    # Load the dataset in normalize mode
     data = AdventurerDataset(data_path, normalize=True)
 
     model.eval()
