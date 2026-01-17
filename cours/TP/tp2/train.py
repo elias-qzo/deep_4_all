@@ -131,11 +131,11 @@ def main(args):
     # Charger les données
     print("\nChargement des données...")
     train_dataset = AdventurerDataset(
-            data_dir / "train.csv",
+            str(data_dir / "train.csv"),
             normalize=args.normalize
             )
     val_dataset = AdventurerDataset(
-            data_dir / "val.csv",
+            str(data_dir / "val.csv"),
             normalize=args.normalize
             )
 
