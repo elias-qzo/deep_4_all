@@ -118,11 +118,12 @@ Les Terres Maudites obéissent à des lois **inversées**. La magie noire qui im
 
 ### Règles du Tournoi
 
+1. **Complétez** Le model oracle [baseline_model.py](baseline_model.py)
 1. **Entraînez** votre modèle a l'aide de `uv run train.py`
-2. **Soumettez** Uploader votre meilleur fichier `.pt` dans l'interface web fournit par le maitre du jeu
-3. Le classement final sera basé sur un **test secret** !
+1. **Soumettez** Uploader votre meilleur fichier `.pt` dans l'interface web fournit par le maitre du jeu
+1. Le classement final sera basé sur un **test secret** !
 
-### Le Twist (Révélé à la fin)
+### Le Twist
 
 Le dataset de test secret contient des aventuriers partis en quête dans les **Terres Maudites**, où les règles sont légèrement différentes...
 

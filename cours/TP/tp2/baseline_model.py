@@ -24,23 +24,8 @@ class GuildOracle(nn.Module):
             num_layers: Nombre de couches cachées
         """
         super().__init__()
-
-        # Construction des couches
-        layers = []
-
-        # Première couche
-        layers.append(nn.Linear(input_dim, hidden_dim))
-        layers.append(nn.ReLU())
-
-        # Couches cachées (beaucoup trop !)
-        for _ in range(num_layers - 1):
-            layers.append(nn.Linear(hidden_dim, hidden_dim))
-            layers.append(nn.ReLU())
-
-        # Couche de sortie
-        layers.append(nn.Linear(hidden_dim, 1))
-
-        self.network = nn.Sequential(*layers)
+        # TODO
+        self.network = nn.Sequential()
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """
