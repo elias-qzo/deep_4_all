@@ -318,9 +318,9 @@ def _(mo, np, plt):
         loss_values = w_values ** 2  # Loss = w^2
 
         axes[0].plot(
-            w_values, loss_values, 'b-', linewidth=2,
-            label='$\\mathcal{L}(w) = w^2$ (fonction de perte)'
-            )
+                w_values, loss_values, 'b-', linewidth=2,
+                label='$\\mathcal{L}(w) = w^2$ (fonction de perte)'
+                )
 
         # --- ETAPE 2 : Initialiser les hyperparametres ---
         learning_rate = 0.3  # eta : pas d'apprentissage
@@ -346,9 +346,9 @@ def _(mo, np, plt):
 
         # Afficher la trajectoire
         axes[0].plot(
-            weights_history, loss_history, 'ro-', markersize=8,
-            label=f'Trajectoire GD ($\\eta={learning_rate}$)'
-            )
+                weights_history, loss_history, 'ro-', markersize=8,
+                label=f'Trajectoire GD ($\\eta={learning_rate}$)'
+                )
 
         for i in range(len(weights_history) - 1):
             axes[0].annotate(
@@ -500,15 +500,15 @@ def _(mo):
     ### La solution : La Règle de la Chaîne (*Chain Rule*)
 
         #### 1. Version mathématique simple
-    
+
         Si on a une composition de fonctions $y = f(g(x))$, alors :
-    
+
         $$\frac{dy}{dx} = \frac{dy}{dg} \cdot \frac{dg}{dx}$$
-    
+
         **Exemple concret :** Soit $y = (2x + 1)^3$
-    
+
         On pose $g(x) = 2x + 1$ et $f(g) = g^3$, donc $y = f(g(x))$.
-    
+
         | Étape | Calcul | Résultat |
         | :---: | :--- | :--- |
         | 1 | $\frac{dg}{dx} = \frac{d(2x+1)}{dx}$ | $2$ |
@@ -679,11 +679,11 @@ def _(mo, plt):
 
         # Définition des positions
         nodes = {
-            'x': (1, 3.5), 'w': (1, 1.5),  # Entrées
-            '*': (3, 2.5),  # Opération z
-            '-': (5, 2.5),  # Opération a (avec y implicite pour simplifier)
+            'x':  (1, 3.5), 'w': (1, 1.5),  # Entrées
+            '*':  (3, 2.5),  # Opération z
+            '-':  (5, 2.5),  # Opération a (avec y implicite pour simplifier)
             '^2': (7, 2.5),  # Opération L
-            'L': (9, 2.5)  # Sortie
+            'L':  (9, 2.5)  # Sortie
             }
 
         # --- DESSIN DU FORWARD (Bleu) ---
@@ -694,9 +694,9 @@ def _(mo, plt):
             x2, y2 = nodes[end]
             # Décalage léger vers le haut pour les flèches bleues
             ax.annotate(
-                '', xy=(x2 - 0.3, y2 + 0.1), xytext=(x1 + 0.3, y1 + 0.1),
-                arrowprops=dict(arrowstyle='->', color='#3498db', lw=2)
-                )
+                    '', xy=(x2 - 0.3, y2 + 0.1), xytext=(x1 + 0.3, y1 + 0.1),
+                    arrowprops=dict(arrowstyle='->', color='#3498db', lw=2)
+                    )
 
         # --- DESSIN DU BACKWARD (Rouge) ---
         # On inverse les flèches
@@ -706,9 +706,9 @@ def _(mo, plt):
 
             # Courbure (connectionstyle) pour séparer visuellement le retour
             ax.annotate(
-                '', xy=(x2 + 0.3, y2 - 0.1), xytext=(x1 - 0.3, y1 - 0.1),
-                arrowprops=dict(arrowstyle='->', color='#e74c3c', lw=2, ls='--')
-                )
+                    '', xy=(x2 + 0.3, y2 - 0.1), xytext=(x1 - 0.3, y1 - 0.1),
+                    arrowprops=dict(arrowstyle='->', color='#e74c3c', lw=2, ls='--')
+                    )
 
         # --- NOEUDS ---
         for name, (x, y) in nodes.items():
@@ -721,24 +721,25 @@ def _(mo, plt):
 
         # Sur la flèche de retour de w
         ax.text(
-            2, 1.2, r"$\frac{\partial L}{\partial w} = \text{Grad}_z \times x$",
-            color='#c0392b', fontsize=11, ha='center', bbox=dict(facecolor='white', alpha=0.8, edgecolor='none')
-            )
+                2, 1.2, r"$\frac{\partial L}{\partial w} = \text{Grad}_z \times x$",
+                color='#c0392b', fontsize=11, ha='center', bbox=dict(facecolor='white', alpha=0.8, edgecolor='none')
+                )
 
         # Sur la flèche de retour de x
         ax.text(
-            2, 3.8, r"$\frac{\partial L}{\partial x} = \text{Grad}_z \times w$",
-            color='#c0392b', fontsize=11, ha='center', bbox=dict(facecolor='white', alpha=0.8, edgecolor='none')
-            )
+                2, 3.8, r"$\frac{\partial L}{\partial x} = \text{Grad}_z \times w$",
+                color='#c0392b', fontsize=11, ha='center', bbox=dict(facecolor='white', alpha=0.8, edgecolor='none')
+                )
 
         # Légende
         ax.text(
-            5, 4.5, "Forward Pass (Calcul de la valeur)", color='#3498db', fontsize=14, ha='center', fontweight='bold'
-            )
+                5, 4.5, "Forward Pass (Calcul de la valeur)", color='#3498db', fontsize=14, ha='center',
+                fontweight='bold'
+                )
         ax.text(
-            5, 0.5, "Backward Pass (Transport de l'urgence)", color='#e74c3c', fontsize=14, ha='center',
-            fontweight='bold'
-            )
+                5, 0.5, "Backward Pass (Transport de l'urgence)", color='#e74c3c', fontsize=14, ha='center',
+                fontweight='bold'
+                )
 
         ax.set_title('Le "Jeu du Téléphone" des Gradients', fontsize=16)
         plt.tight_layout()
@@ -800,10 +801,10 @@ def _(mo, np, plt):
 
         # Annotation
         ax.annotate(
-            'Le signal devient nul ici !\nLe début du réseau ne change pas.',
-            xy=(20, 0.01), xytext=(25, 0.5),
-            arrowprops=dict(facecolor='black', shrink=0.05)
-            )
+                'Le signal devient nul ici !\nLe début du réseau ne change pas.',
+                xy=(20, 0.01), xytext=(25, 0.5),
+                arrowprops=dict(facecolor='black', shrink=0.05)
+                )
 
         return fig
 
