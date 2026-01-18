@@ -12,76 +12,68 @@ def _():
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-            # Reseaux de Neurones : De la Theorie a la Pratique
-        
-            ## Master 2 Informatique - Introduction a l'IA
-        
-            ---
-        
-            ### Plan du cours
-        
-            1. **Le Neurone Artificiel** - Du biologique au mathematique
-            2. **Fonctions d'Activation** - Non-linearite et expressivite
-            3. **Descente de Gradient** - Optimisation et apprentissage
-            4. **Backpropagation** - La regle de la chaine en action
-            5. **Multi-Layer Perceptron (MLP)** - Architecture profonde
-            6. **Demo Interactive** - Micrograd en pratique
-            """
-        )
+    mo.md(r"""
+    # Reseaux de Neurones : De la Theorie a la Pratique
+
+    ## Master 2 Informatique - Introduction a l'IA
+
+    ---
+
+    ### Plan du cours
+
+    1. **Le Neurone Artificiel** - Du biologique au mathematique
+    2. **Fonctions d'Activation** - Non-linearite et expressivite
+    3. **Descente de Gradient** - Optimisation et apprentissage
+    4. **Backpropagation** - La regle de la chaine en action
+    5. **Multi-Layer Perceptron (MLP)** - Architecture profonde
+    6. **Demo Interactive** - Micrograd en pratique
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-            ---
-            ## 1. Le Neurone Artificiel
-        
-            ### Du biologique au mathematique
-        
-            Le neurone biologique recoit des signaux electriques via ses **dendrites**,
-            les integre dans le **corps cellulaire**, et si le signal depasse un seuil,
-            transmet une impulsion via son **axone**.
-            """
-        )
+    mo.md(r"""
+    ---
+    ## 1. Le Neurone Artificiel
+
+    ### Du biologique au mathematique
+
+    Le neurone biologique recoit des signaux electriques via ses **dendrites**,
+    les integre dans le **corps cellulaire**, et si le signal depasse un seuil,
+    transmet une impulsion via son **axone**.
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-            ### Le modele mathematique
-        
-            Le neurone artificiel (perceptron) imite ce comportement :
-        
-            $$y = f\left(\sum_{i=1}^{n} w_i x_i + b\right) = f(\mathbf{w}^T \mathbf{x} + b)$$
-        
-            Ou :
-            - $\mathbf{x} = (x_1, x_2, ..., x_n)$ : vecteur d'entree (les "dendrites")
-            - $\mathbf{w} = (w_1, w_2, ..., w_n)$ : poids synaptiques (force des connexions)
-            - $b$ : biais (seuil d'activation)
-            - $f$ : fonction d'activation (decision de "tirer" ou non)
-            - $y$ : sortie du neurone
-            """
-        )
+    mo.md(r"""
+    ### Le modele mathematique
+
+    Le neurone artificiel (perceptron) imite ce comportement :
+
+    $$y = f\left(\sum_{i=1}^{n} w_i x_i + b\right) = f(\mathbf{w}^T \mathbf{x} + b)$$
+
+    Ou :
+    - $\mathbf{x} = (x_1, x_2, ..., x_n)$ : vecteur d'entree (les "dendrites")
+    - $\mathbf{w} = (w_1, w_2, ..., w_n)$ : poids synaptiques (force des connexions)
+    - $b$ : biais (seuil d'activation)
+    - $f$ : fonction d'activation (decision de "tirer" ou non)
+    - $y$ : sortie du neurone
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-            ### 🕹️ Labo Interactif : La Frontière de Décision
-        
-            Jouez avec les paramètres pour comprendre leur rôle géométrique :
-            - **$w_1$ et $w_2$** : Ils déterminent l'**angle** (la rotation) de la ligne.
-            - **$b$ (Biais)** : Il détermine la **position** (le décalage) de la ligne par rapport à l'origine.
-            """
-        )
+    mo.md(r"""
+    ### 🕹️ Labo Interactif : La Frontière de Décision
+
+    Jouez avec les paramètres pour comprendre leur rôle géométrique :
+    - **$w_1$ et $w_2$** : Ils déterminent l'**angle** (la rotation) de la ligne.
+    - **$b$ (Biais)** : Il détermine la **position** (le décalage) de la ligne par rapport à l'origine.
+    """)
     return
 
 
@@ -166,21 +158,19 @@ def _(b_slider, plot_interactive_neuron, w1_slider, w2_slider):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-            ---
-            ## 2. Fonctions d'Activation
-        
-            ### Pourquoi avons-nous besoin de non-linearite ?
-        
-            Sans fonction d'activation non-lineaire, un reseau de N couches
-            est equivalent a une seule transformation lineaire :
-        
-            $$f(g(x)) = W_2(W_1 x) = (W_2 W_1) x = W' x$$
-        
-            La non-linearite permet d'apprendre des frontieres de decision complexes !
-            """
-        )
+    mo.md(r"""
+    ---
+    ## 2. Fonctions d'Activation
+
+    ### Pourquoi avons-nous besoin de non-linearite ?
+
+    Sans fonction d'activation non-lineaire, un reseau de N couches
+    est equivalent a une seule transformation lineaire :
+
+    $$f(g(x)) = W_2(W_1 x) = (W_2 W_1) x = W' x$$
+
+    La non-linearite permet d'apprendre des frontieres de decision complexes !
+    """)
     return
 
 
@@ -251,70 +241,64 @@ def _(plot_activations):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-            ### Comparaison des fonctions d'activation
-        
-            | Fonction | Avantages | Inconvenients |
-            |----------|-----------|---------------|
-            | **Sigmoid** | Sortie bornee [0,1], probabiliste | Vanishing gradient, pas centree sur 0 |
-            | **Tanh** | Centree sur 0, sortie [-1,1] | Vanishing gradient |
-            | **ReLU** | Simple, pas de vanishing gradient | "Dying ReLU" (neurones morts) |
-            | **Leaky ReLU** | Evite les neurones morts | Hyperparametre supplementaire |
-            | **GELU/SiLU** | Smooth, performant en pratique | Plus couteux a calculer |
-            """
-        )
+    mo.md(r"""
+    ### Comparaison des fonctions d'activation
+
+    | Fonction | Avantages | Inconvenients |
+    |----------|-----------|---------------|
+    | **Sigmoid** | Sortie bornee [0,1], probabiliste | Vanishing gradient, pas centree sur 0 |
+    | **Tanh** | Centree sur 0, sortie [-1,1] | Vanishing gradient |
+    | **ReLU** | Simple, pas de vanishing gradient | "Dying ReLU" (neurones morts) |
+    | **Leaky ReLU** | Evite les neurones morts | Hyperparametre supplementaire |
+    | **GELU/SiLU** | Smooth, performant en pratique | Plus couteux a calculer |
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-            ---
-            ## 3. Descente de Gradient
-        
-            ### Le probleme d'optimisation
-        
-            Objectif : trouver les poids $\mathbf{w}$ qui minimisent une fonction de cout $\mathcal{L}$
-        
-            $$\mathbf{w}^* = \arg\min_{\mathbf{w}} \mathcal{L}(\mathbf{w})$$
-        
-            **Idee intuitive** : Imaginez-vous sur une montagne dans le brouillard.
-            Pour descendre, vous tatez le sol autour de vous et avancez dans la direction
-            qui descend le plus.
-            """
-        )
+    mo.md(r"""
+    ---
+    ## 3. Descente de Gradient
+
+    ### Le probleme d'optimisation
+
+    Objectif : trouver les poids $\mathbf{w}$ qui minimisent une fonction de cout $\mathcal{L}$
+
+    $$\mathbf{w}^* = \arg\min_{\mathbf{w}} \mathcal{L}(\mathbf{w})$$
+
+    **Idee intuitive** : Imaginez-vous sur une montagne dans le brouillard.
+    Pour descendre, vous tatez le sol autour de vous et avancez dans la direction
+    qui descend le plus.
+    """)
     return
 
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
-            ### 📉 L'algorithme de Descente de Gradient
-        
-            L'objectif est de minimiser la fonction de coût $\mathcal{L}(\mathbf{w})$.
-        
-            1. **Initialisation** : Choisir un vecteur de poids initial $\mathbf{w}^{(0)}$ (aléatoire).
-            2. **Itération** : Répéter jusqu'à la convergence :
-               - Calculer le gradient : $\nabla_{\mathbf{w}} \mathcal{L}$
-               - Mettre à jour les poids :
-            $\mathbf{w}^{(t+1)} \leftarrow \mathbf{w}^{(t)} - \eta \nabla_{\mathbf{w}} \mathcal{L}$
-        
-            ---
-        
-            #### 📝 Résumé des notations
-        
-            | Symbole | Terme | Signification |
-            | :---: | :--- | :--- |
-            | $\mathbf{w}$ | **Vecteur de poids** | Les paramètres du modèle que l'on cherche à optimiser. |
-            | $\eta$ | **Taux d'apprentissage** | (*Learning rate*) Contrôle la taille du pas à chaque itération. |
-            | $\mathcal{L}$ | **Fonction de coût** | (*Loss function*) Mesure l'erreur entre la prédiction et la réalité. |
-            | $\nabla$ | **Gradient** | Vecteur indiquant la direction de la pente la plus raide. |
-            | $\partial$ | **Dérivée partielle** | Variation de l'erreur par rapport à un seul poids spécifique. |
-            """
-        )
+    mo.md(r"""
+    ### 📉 L'algorithme de Descente de Gradient
+
+    L'objectif est de minimiser la fonction de coût $\mathcal{L}(\mathbf{w})$.
+
+    1. **Initialisation** : Choisir un vecteur de poids initial $\mathbf{w}^{(0)}$ (aléatoire).
+    2. **Itération** : Répéter jusqu'à la convergence :
+       - Calculer le gradient : $\nabla_{\mathbf{w}} \mathcal{L}$
+       - Mettre à jour les poids :
+    $\mathbf{w}^{(t+1)} \leftarrow \mathbf{w}^{(t)} - \eta \nabla_{\mathbf{w}} \mathcal{L}$
+
+    ---
+
+    #### 📝 Résumé des notations
+
+    | Symbole | Terme | Signification |
+    | :---: | :--- | :--- |
+    | $\mathbf{w}$ | **Vecteur de poids** | Les paramètres du modèle que l'on cherche à optimiser. |
+    | $\eta$ | **Taux d'apprentissage** | (*Learning rate*) Contrôle la taille du pas à chaque itération. |
+    | $\mathcal{L}$ | **Fonction de coût** | (*Loss function*) Mesure l'erreur entre la prédiction et la réalité. |
+    | $\nabla$ | **Gradient** | Vecteur indiquant la direction de la pente la plus raide. |
+    | $\partial$ | **Dérivée partielle** | Variation de l'erreur par rapport à un seul poids spécifique. |
+    """)
     return
 
 
@@ -418,17 +402,15 @@ def _(plot_gradient_descent):
 
 @app.cell
 def _(mo):
-    mo.md(
-            r"""
-        ### 🕹️ Labo Interactif : Jouez avec le Learning Rate !
-    
-        Essayez de modifier le **taux d'apprentissage** ($\eta$) ci-dessous.
-        - **$\eta < 0.1$** : Descente lente (prudent mais long).
-        - **$\eta \approx 0.3$** : Convergence rapide.
-        - **$\eta > 0.9$** : Oscillations.
-        - **$\eta > 1.0$** : Explosion (Divergence) !
-        """
-            )
+    mo.md(r"""
+    ### 🕹️ Labo Interactif : Jouez avec le Learning Rate !
+
+    Essayez de modifier le **taux d'apprentissage** ($\eta$) ci-dessous.
+    - **$\eta < 0.1$** : Descente lente (prudent mais long).
+    - **$\eta \approx 0.3$** : Convergence rapide.
+    - **$\eta > 0.9$** : Oscillations.
+    - **$\eta > 1.0$** : Explosion (Divergence) !
+    """)
     return
 
 
@@ -440,7 +422,7 @@ def _(mo):
 
     # On regroupe pour l'affichage
     mo.hstack([lr_slider, step_slider], justify="center")
-    return (lr_slider, step_slider)
+    return lr_slider, step_slider
 
 
 @app.cell
@@ -494,72 +476,196 @@ def _(lr_slider, mo, np, plt, step_slider):
                 interact_gradient_descent(lr_slider.value, step_slider.value)
                 ]
             )
-    return (interact_gradient_descent,)
-
-
-@app.cell
-def _(mo):
-    mo.md(
-            r"""
-            ---
-            ## 4. 🧠 Backpropagation : La Règle de la Chaîne
-    
-            ### Le problème fondamental
-            Comment savoir quel poids modifier (et de combien) dans un réseau de neurones géant ?
-            C'est un problème d'**attribution de crédit** (ou de blâme).
-    
-            ### La solution : La Règle de la Chaîne (*Chain Rule*)
-    
-            Mathématiquement, si $y = f(g(x))$, alors $\frac{dy}{dx} = \frac{dy}{dg} \cdot \frac{dg}{dx}$.
-    
-            Mais intuitivement, c'est un **système de communication** :
-    
-            $$
-            \text{Gradient Final} = \underbrace{\text{Signal d'Urgence}}_{\text{venant du futur}} \times \underbrace{\text{Amplificateur Local}}_{\text{calculé ici}}
-            $$
-    
-            | Terme | Nom | Rôle |
-            | :--- | :--- | :--- |
-            | $\frac{\partial \mathcal{L}}{\partial \text{sortie}}$ | **Gradient Externe** | *"L'Urgence"* : À quel point la perte veut que ma sortie change. |
-            | $\frac{\partial \text{sortie}}{\partial \text{entrée}}$ | **Dérivée Locale** | *"L'Influence"* : Si je bouge mon entrée, est-ce que ça impacte ma sortie ? |
-            """
-            )
     return
 
 
 @app.cell
 def _(mo):
-    mo.md(
-            r"""
-            ### 🔍 Backpropagation en Action
+    mo.md(r"""
+    ---
+    ## 4. 🧠 Backpropagation : La Règle de la Chaîne
+
+    ### Le problème fondamental
+
+    Comment savoir quel poids modifier (et de combien) dans un réseau de neurones géant ?
+
+    **Situation :** Imaginez un réseau avec 1 million de poids. La prédiction est fausse.
+    - Qui est responsable ?
+    - Le poids de la couche 1 ? De la couche 50 ? Tous un peu ?
+
+    C'est le problème d'**attribution de crédit** (ou de blâme) : distribuer la responsabilité de l'erreur à chaque paramètre du réseau.
+
+    ---
+
+    ### La solution : La Règle de la Chaîne (*Chain Rule*)
+
+        #### 1. Version mathématique simple
     
-            Prenons un exemple concret : $L = (w \cdot x - y)^2$
+        Si on a une composition de fonctions $y = f(g(x))$, alors :
     
-            **1. Forward pass** (On calcule le résultat) :
-            * $z = w \cdot x$
-            * $a = z - y$
-            * $L = a^2$
+        $$\frac{dy}{dx} = \frac{dy}{dg} \cdot \frac{dg}{dx}$$
     
-            **2. Backward pass** (On remonte le signal d'erreur) :
+        **Exemple concret :** Soit $y = (2x + 1)^3$
     
-            On part de la fin et on applique la règle : `grad = urgence * influence`
+        On pose $g(x) = 2x + 1$ et $f(g) = g^3$, donc $y = f(g(x))$.
     
-            * **Étape 1 (Noeud a) :**
-                * Urgence reçue : $\frac{\partial L}{\partial L} = 1$
-                * Influence locale ($L=a^2$) : $2a$
-                * $\frac{\partial L}{\partial a} = 1 \cdot 2a = \mathbf{2a}$
-    
-            * **Étape 2 (Noeud z) :**
-                * Urgence reçue (de a) : $2a$
-                * Influence locale ($a=z-y$) : $1$ (dérivée de z-y par rapport à z)
-                * $\frac{\partial L}{\partial z} = 2a \cdot 1 = \mathbf{2a}$
-    
-            * **Étape 3 (Le poids w) :**
-                * Urgence reçue (de z) : $2a$
-                * Influence locale ($z=w \cdot x$) : $x$ (Si $x$ est grand, $w$ a beaucoup d'influence !)
-                * $\frac{\partial L}{\partial w} = \underbrace{2a}_{\text{Urgence}} \cdot \underbrace{x}_{\text{Amplificateur}} = \mathbf{2x(wx - y)}$
-            """
-            )
+        | Étape | Calcul | Résultat |
+        | :---: | :--- | :--- |
+        | 1 | $\frac{dg}{dx} = \frac{d(2x+1)}{dx}$ | $2$ |
+        | 2 | $\frac{dy}{dg} = \frac{d(g^3)}{dg}$ | $3g^2$ |
+        | 3 | $\frac{dy}{dx} = \frac{dy}{dg} \cdot \frac{dg}{dx}$ | $3g^2 \cdot 2 = 6(2x+1)^2$ |
+
+    ---
+
+    #### 2. Extension à plusieurs étapes
+
+    Pour une chaîne plus longue $y = f(g(h(x)))$ :
+
+    $$\frac{dy}{dx} = \frac{dy}{df} \cdot \frac{df}{dg} \cdot \frac{dg}{dh} \cdot \frac{dh}{dx}$$
+
+    C'est comme une **chaîne de transmission** : chaque maillon multiplie le signal.
+
+    ---
+
+    #### 3. L'intuition : Le système de communication
+
+    Pensez à un **jeu du téléphone** dans une entreprise :
+
+    | Analogie | Mathématiques | Signification |
+    | :--- | :--- | :--- |
+    | Le PDG annonce un problème | $\frac{\partial L}{\partial L} = 1$ | Signal d'erreur initial |
+    | Chaque manager relaie le message | $\times$ dérivée locale | Amplification ou atténuation |
+    | L'employé reçoit sa part de responsabilité | $\frac{\partial L}{\partial w}$ | Gradient final du poids |
+
+    ---
+
+    #### 4. La formule fondamentale
+
+    $$
+    \boxed{\text{Gradient d'un noeud} = \underbrace{\text{Gradient reçu}}_{\text{"Urgence" venant de l'aval}} \times \underbrace{\text{Dérivée locale}}_{\text{"Influence" calculée ici}}}
+    $$
+
+    ---
+
+    #### 5. Tableau récapitulatif des termes
+
+    | Terme | Nom | Rôle | Exemple |
+    | :--- | :--- | :--- | :--- |
+    | $\frac{\partial \mathcal{L}}{\partial \text{sortie}}$ | **Gradient Externe** | *"L'Urgence"* : À quel point la perte veut que ma sortie change | Si = 10, la sortie doit beaucoup changer |
+    | $\frac{\partial \text{sortie}}{\partial \text{entrée}}$ | **Dérivée Locale** | *"L'Influence"* : Si je bouge mon entrée, est-ce que ça impacte ma sortie ? | Si = 0, l'entrée n'a aucun effet |
+    | $\frac{\partial \mathcal{L}}{\partial \text{entrée}}$ | **Gradient Propagé** | Le gradient à transmettre aux noeuds précédents | Produit des deux termes ci-dessus |
+
+    ---
+
+    #### 6. Cas particuliers importants
+
+    | Situation | Dérivée locale | Conséquence |
+    | :--- | :---: | :--- |
+    | ReLU avec entrée < 0 | $0$ | Gradient bloqué ("neurone mort") |
+    | Sigmoid saturée (entrée très grande) | $\approx 0$ | Gradient qui s'évanouit |
+    | Connexion résiduelle ($y = x + f(x)$) | $1 + f'(x)$ | Gradient préservé (au moins 1) |
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    ### 🔍 Backpropagation en Action
+
+    Prenons un exemple concret : $L = (w \cdot x - y)^2$
+
+    ---
+
+    **1. Forward pass** (On calcule le résultat étape par étape) :
+
+    | Étape | Opération | Description |
+    | :---: | :--- | :--- |
+    | 1 | $z = w \cdot x$ | Multiplication du poids par l'entrée |
+    | 2 | $a = z - y$ | Différence entre la prédiction et la cible |
+    | 3 | $L = a^2$ | Erreur quadratique (toujours positive) |
+
+    *Exemple numérique :* Si $w=2$, $x=3$, $y=5$ :
+    - $z = 2 \times 3 = 6$
+    - $a = 6 - 5 = 1$
+    - $L = 1^2 = 1$
+
+    ---
+
+    **2. Backward pass** (On remonte le signal d'erreur) :
+
+    On part de la fin et on applique la règle : **grad = urgence × influence**
+
+    ---
+
+    * **Étape 0 (Initialisation) :**
+        * On démarre avec $\frac{\partial L}{\partial L} = 1$ (la perte s'influence elle-même à 100%)
+        * C'est le "signal d'erreur" initial qu'on va propager vers l'arrière
+
+    ---
+
+    * **Étape 1 (Noeud $L = a^2$) → On cherche $\frac{\partial L}{\partial a}$ :**
+        * **Question :** Comment $a$ influence-t-il $L$ ?
+        * **Fonction locale :** $L = a^2$
+        * **Dérivée locale :** $\frac{\partial L}{\partial a} = 2a$ (règle de puissance)
+        * **Calcul :** Urgence reçue × Influence locale = $1 \times 2a$
+        * **Résultat :** $\boxed{\frac{\partial L}{\partial a} = 2a}$
+        * *Exemple :* Si $a=1$, alors $\frac{\partial L}{\partial a} = 2$
+
+    ---
+
+    * **Étape 2 (Noeud $a = z - y$) → On cherche $\frac{\partial L}{\partial z}$ :**
+        * **Question :** Comment $z$ influence-t-il $a$ ?
+        * **Fonction locale :** $a = z - y$
+        * **Dérivée locale :** $\frac{\partial a}{\partial z} = 1$ (coefficient devant $z$)
+        * **Calcul :** Urgence reçue (de $a$) × Influence locale = $2a \times 1$
+        * **Résultat :** $\boxed{\frac{\partial L}{\partial z} = 2a}$
+        * *Exemple :* Si $a=1$, alors $\frac{\partial L}{\partial z} = 2$
+
+    ---
+
+    * **Étape 2bis (Noeud $a = z - y$) → On cherche aussi $\frac{\partial L}{\partial y}$ :**
+        * **Question :** Comment $y$ influence-t-il $a$ ?
+        * **Fonction locale :** $a = z - y$
+        * **Dérivée locale :** $\frac{\partial a}{\partial y} = -1$ (coefficient devant $y$)
+        * **Calcul :** Urgence reçue (de $a$) × Influence locale = $2a \times (-1)$
+        * **Résultat :** $\boxed{\frac{\partial L}{\partial y} = -2a}$
+        * *Interprétation :* Le signe négatif signifie que si on augmente $y$, la perte diminue (et vice-versa)
+
+    ---
+
+    * **Étape 3 (Noeud $z = w \cdot x$) → On cherche $\frac{\partial L}{\partial w}$ :**
+        * **Question :** Comment $w$ influence-t-il $z$ ?
+        * **Fonction locale :** $z = w \cdot x$
+        * **Dérivée locale :** $\frac{\partial z}{\partial w} = x$ (on dérive par rapport à $w$, donc $x$ est une constante)
+        * **Calcul :** Urgence reçue (de $z$) × Influence locale = $2a \times x$
+        * **Résultat :** $\boxed{\frac{\partial L}{\partial w} = 2ax = 2x(wx - y)}$
+        * *Exemple :* Si $a=1$ et $x=3$, alors $\frac{\partial L}{\partial w} = 6$
+        * *Interprétation :* Plus $x$ est grand, plus $w$ a d'influence sur la perte !
+
+    ---
+
+    * **Étape 3bis (Noeud $z = w \cdot x$) → On cherche aussi $\frac{\partial L}{\partial x}$ :**
+        * **Question :** Comment $x$ influence-t-il $z$ ?
+        * **Fonction locale :** $z = w \cdot x$
+        * **Dérivée locale :** $\frac{\partial z}{\partial x} = w$ (on dérive par rapport à $x$, donc $w$ est une constante)
+        * **Calcul :** Urgence reçue (de $z$) × Influence locale = $2a \times w$
+        * **Résultat :** $\boxed{\frac{\partial L}{\partial x} = 2aw = 2w(wx - y)}$
+
+    ---
+
+    **3. Résumé des gradients :**
+
+    | Variable | Gradient | Rôle |
+    | :---: | :--- | :--- |
+    | $w$ | $\frac{\partial L}{\partial w} = 2x(wx-y)$ | Utilisé pour mettre à jour le poids |
+    | $x$ | $\frac{\partial L}{\partial x} = 2w(wx-y)$ | Propagé vers les couches précédentes |
+    | $y$ | $\frac{\partial L}{\partial y} = -2(wx-y)$ | La cible (pas de mise à jour) |
+
+    **Mise à jour du poids :** $w_{\text{nouveau}} = w - \eta \cdot \frac{\partial L}{\partial w}$
+
+    où $\eta$ est le *learning rate* (taux d'apprentissage).
+    """)
     return
 
 
@@ -641,6 +747,7 @@ def _(mo, plt):
     mo.md("### 🎨 Visualisation du flux de gradient")
     return (plot_computational_graph_improved,)
 
+
 @app.cell
 def _(plot_computational_graph_improved):
     plot_computational_graph_improved()
@@ -649,25 +756,23 @@ def _(plot_computational_graph_improved):
 
 @app.cell
 def _(mo):
-    mo.md(
-            r"""
-            ### ⚠️ Note cruciale : L'Accumulation (`+=`)
-    
-            Que se passe-t-il si une variable est utilisée **plusieurs fois** ?
-    
-            Imaginez une rivière avec deux affluents qui se rejoignent. Le débit final est la **somme** des deux.
-    
-            * Mathématiquement : C'est la **Règle de la Chaîne Multivariée**.
-            * Code : C'est pour ça qu'on utilise `self.grad += ...` et non `=`.
-    
-            Si $x$ influence la perte via deux chemins différents, on doit additionner l'urgence venant des deux chemins pour connaître l'urgence totale sur $x$.
-            """
-            )
+    mo.md(r"""
+    ### ⚠️ Note cruciale : L'Accumulation (`+=`)
+
+    Que se passe-t-il si une variable est utilisée **plusieurs fois** ?
+
+    Imaginez une rivière avec deux affluents qui se rejoignent. Le débit final est la **somme** des deux.
+
+    * Mathématiquement : C'est la **Règle de la Chaîne Multivariée**.
+    * Code : C'est pour ça qu'on utilise `self.grad += ...` et non `=`.
+
+    Si $x$ influence la perte via deux chemins différents, on doit additionner l'urgence venant des deux chemins pour connaître l'urgence totale sur $x$.
+    """)
     return
 
 
 @app.cell
-def _(mo, plt, np):
+def _(mo, np, plt):
     def plot_vanishing_gradient():
         # Simulation : On remonte le temps sur 50 étapes
         steps = np.arange(50)
@@ -705,10 +810,12 @@ def _(mo, plt, np):
     mo.md("### 📉 Visualisation : La mort du gradient")
     return (plot_vanishing_gradient,)
 
+
 @app.cell
 def _(plot_vanishing_gradient):
     plot_vanishing_gradient()
     return
+
 
 if __name__ == "__main__":
     app.run()

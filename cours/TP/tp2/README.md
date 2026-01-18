@@ -82,7 +82,7 @@ Les Sages de la Guilde ont étudié des milliers de quêtes et ont découvert le
 *"Un guerrier bien équipé et puissant domine les quêtes classiques."*
 — Grimoire de l'Oracle, Chapitre III
 
-#### Dans les Terres Maudites (test secret - SPOILER ENSEIGNANT)
+#### Dans les Terres Maudites
 
 <details>
 <summary>🔒 parchemin des vieux sage</summary>
