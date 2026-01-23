@@ -12,6 +12,7 @@ from pathlib import Path
 
 import torch
 import torch.nn as nn
+from torch.utils.data import DataLoader
 
 from leaderboard_base import (
     LeaderboardApp,
@@ -29,8 +30,9 @@ from train_oracle import AdventurerDataset
 class OracleEvaluator(ModelEvaluator):
     """Évaluateur pour le dataset Oracle (features tabulaires)."""
 
-    def __init__(self, input_dim: int = 8):
+    def __init__(self, input_dim: int = 8, batch_size: int = 64):
         self.input_dim = input_dim
+        self.batch_size = batch_size
 
     def create_test_input(self) -> torch.Tensor:
         """Crée un tensor de test (batch=2 pour BatchNorm)."""
@@ -38,16 +40,26 @@ class OracleEvaluator(ModelEvaluator):
 
     def evaluate(self, model: nn.Module, data_path: str) -> dict:
         """Évalue un modèle sur le dataset Oracle."""
-        data = AdventurerDataset(data_path, normalize=True)
+        dataset = AdventurerDataset(data_path, normalize=True)
+        dataloader = DataLoader(dataset, batch_size=self.batch_size, shuffle=False)
+
+        all_predictions = []
+        all_labels = []
 
         model.eval()
         with torch.no_grad():
-            logits = model(data.features).squeeze()
-            probs = torch.sigmoid(logits).numpy()
-            predictions = (probs > 0.5).astype(int)
-            labels = data.labels.numpy()
+            for features, labels in dataloader:
+                logits = model(features).squeeze()
+                probs = torch.sigmoid(logits)
+                predictions = (probs > 0.5).int()
 
-        return compute_metrics(predictions, labels)
+                all_predictions.append(predictions)
+                all_labels.append(labels)
+
+        all_predictions = torch.cat(all_predictions).numpy()
+        all_labels = torch.cat(all_labels).numpy()
+
+        return compute_metrics(all_predictions, all_labels)
 
 
 # =============================================================================

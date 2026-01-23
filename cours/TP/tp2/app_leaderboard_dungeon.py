@@ -11,11 +11,10 @@ Usage:
 import json
 from pathlib import Path
 
-import pandas as pd
 import torch
 import torch.nn as nn
-from torch.utils.data import Dataset
-from train_dungeon_logs import DungeonLogDataset
+from torch.utils.data import DataLoader
+from train_dungeon_logs import DungeonLogDataset, collate_fn
 
 from leaderboard_base import (
     LeaderboardApp,
@@ -31,9 +30,10 @@ from leaderboard_base import (
 class DungeonEvaluator(ModelEvaluator):
     """Évaluateur pour le dataset Dungeon (séquences)."""
 
-    def __init__(self, vocab_path: str, max_length: int = 128):
+    def __init__(self, vocab_path: str, max_length: int = 128, batch_size: int = 64):
         self.vocab_path = vocab_path
         self.max_length = max_length
+        self.batch_size = batch_size
 
         # Charger le vocabulaire pour connaître sa taille
         with open(vocab_path, 'r', encoding='utf-8') as f:
@@ -47,26 +47,41 @@ class DungeonEvaluator(ModelEvaluator):
 
     def evaluate(self, model: nn.Module, data_path: str) -> dict:
         """Évalue un modèle sur le dataset Dungeon."""
-        data = DungeonLogDataset(
+        dataset = DungeonLogDataset(
             data_path,
             vocab_path=self.vocab_path,
             max_length=self.max_length
         )
+        dataloader = DataLoader(dataset,
+                                collate_fn=collate_fn,
+                                batch_size=self.batch_size,
+                                shuffle=False)
+
+        all_predictions = []
+        all_labels = []
 
         model.eval()
         with torch.no_grad():
-            # Le modèle peut accepter (sequences) ou (sequences, lengths)
-            try:
-                logits = model(data.sequences, data.lengths).squeeze()
-            except TypeError:
-                # Si le modèle n'accepte pas lengths
-                logits = model(data.sequences).squeeze()
+            for batch in dataloader:
+                sequences, labels, lengths = batch
 
-            probs = torch.sigmoid(logits).numpy()
-            predictions = (probs > 0.5).astype(int)
-            labels = data.labels.numpy()
+                # Le modèle peut accepter (sequences) ou (sequences, lengths)
+                try:
+                    logits = model(sequences, lengths).squeeze()
+                except TypeError:
+                    # Si le modèle n'accepte pas lengths
+                    logits = model(sequences).squeeze()
 
-        return compute_metrics(predictions, labels)
+                probs = torch.sigmoid(logits)
+                predictions = (probs > 0.5).int()
+
+                all_predictions.append(predictions)
+                all_labels.append(labels)
+
+        all_predictions = torch.cat(all_predictions).numpy()
+        all_labels = torch.cat(all_labels).numpy()
+
+        return compute_metrics(all_predictions, all_labels)
 
 
 # =============================================================================
@@ -113,13 +128,6 @@ Le dataset contient des séquences d'événements de donjon :
 1. **Entraînez** votre modèle (RNN, LSTM, Transformer...)
 2. **Sauvegardez** avec `torch.save(model, 'model.pt')`
 3. **Upload** le fichier .pt sur cette interface
-
-### Format du modèle
-
-Votre modèle doit accepter :
-- `forward(sequences)` ou `forward(sequences, lengths)`
-- `sequences`: Tensor de shape `(batch, max_length)` avec les token IDs
-- `lengths`: Tensor de shape `(batch,)` avec les longueurs réelles (optionnel)
 
 ### Scoring
 

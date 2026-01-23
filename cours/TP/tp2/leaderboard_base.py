@@ -17,9 +17,10 @@ import zipfile
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable, Optional
+from typing import Callable, Optional, Union
 
 import gradio as gr
+import numpy as np
 import pandas as pd
 import torch
 import torch.nn as nn
@@ -282,7 +283,8 @@ class ModelEvaluator(ABC):
         pass
 
 
-def compute_metrics(predictions: torch.Tensor, labels: torch.Tensor) -> dict:
+def compute_metrics(predictions: Union[torch.Tensor, np.ndarray],
+                    labels: Union[torch.Tensor, np.ndarray]) -> dict:
     """Calcule les métriques de classification binaire."""
     predictions = predictions.numpy() if isinstance(predictions, torch.Tensor) else predictions
     labels = labels.numpy() if isinstance(labels, torch.Tensor) else labels
@@ -334,25 +336,23 @@ class LeaderboardApp:
         if not self.config.val_path.exists():
             return f"Erreur: Dataset validation non trouvé.", self.db.get_leaderboard()
 
-        try:
-            model_path = model_file.name if hasattr(model_file, 'name') else model_file
 
-            if model_path.endswith('.zip'):
-                with tempfile.TemporaryDirectory() as tmp_dir:
-                    with zipfile.ZipFile(model_path, 'r') as zip_ref:
-                        zip_ref.extractall(tmp_dir)
+        model_path = model_file.name if hasattr(model_file, 'name') else model_file
 
-                    pt_files = list(Path(tmp_dir).rglob('*.pt'))
-                    if not pt_files:
-                        return "Erreur: Aucun fichier .pt trouvé dans le ZIP.", self.db.get_leaderboard()
+        if model_path.endswith('.zip'):
+            with tempfile.TemporaryDirectory() as tmp_dir:
+                with zipfile.ZipFile(model_path, 'r') as zip_ref:
+                    zip_ref.extractall(tmp_dir)
 
-                    model_path = str(pt_files[0])
-                    return self._evaluate_and_save(team_name, model_path)
-            else:
+                pt_files = list(Path(tmp_dir).rglob('*.pt'))
+                if not pt_files:
+                    return "Erreur: Aucun fichier .pt trouvé dans le ZIP.", self.db.get_leaderboard()
+
+                model_path = str(pt_files[0])
                 return self._evaluate_and_save(team_name, model_path)
+        else:
+            return self._evaluate_and_save(team_name, model_path)
 
-        except Exception as e:
-            return f"Erreur: {str(e)}", self.db.get_leaderboard()
 
     def _evaluate_and_save(self, team_name: str, model_path: str) -> tuple:
         """Évalue et sauvegarde le modèle."""
