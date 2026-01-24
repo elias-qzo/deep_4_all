@@ -114,6 +114,8 @@ Les Terres Maudites obéissent à des lois **inversées**. La magie noire qui im
 
 **Leçon pédagogique** : Les modèles qui ont mémorisé "force = survie" échoueront. Seuls les modèles régularisés qui ont appris des patterns généraux s'adapteront.
 
+**Attention**: !!!! Dans la terre maudites l'atmosphère normalise les données de test !!!
+
 </details>
 
 ### Règles du Tournoi
@@ -128,6 +130,8 @@ Les Terres Maudites obéissent à des lois **inversées**. La magie noire qui im
 Le dataset de test secret contient des aventuriers partis en quête dans les **Terres Maudites**, où les règles sont légèrement différentes...
 
 Ceux qui ont sur-appris les données d'entraînement seront surpris !
+
+**Attention**: !!!! Dans la terre maudites l'atmosphère normalise les données de test !!!
 
 ### Conseils
 

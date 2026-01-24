@@ -158,8 +158,7 @@ def main(args):
     print("\nCréation du modèle...")
     model = GuildOracle(
             input_dim=train_dataset.features.shape[1],
-            hidden_dim=args.hidden_dim,
-            num_layers=args.num_layers
+            hidden_dim=args.hidden_dim
             )
     model = model.to(device)
     print(f"Paramètres: {count_parameters(model):,}")
@@ -300,10 +299,6 @@ if __name__ == "__main__":
     parser.add_argument(
             '--hidden_dim', type=int, default=256,
             help='Dimension des couches cachées'
-            )
-    parser.add_argument(
-            '--num_layers', type=int, default=10,
-            help='Nombre de couches cachées'
             )
 
     # Entraînement
