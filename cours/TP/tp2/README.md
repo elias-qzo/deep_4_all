@@ -137,16 +137,6 @@ Questions à vous poser :
 - Est-ce que je fais de l'early stopping ?
 - Mon modèle généralise-t-il ou mémorise-t-il ?
 
-## Critères d'Évaluation
-
-| Critère | Points |
-|---------|--------|
-| Modèle PyTorch fonctionnel | 5 |
-| Accuracy sur validation > 75% | 3 |
-| Accuracy sur test secret > 70% | 5 |
-| Code propre et commenté | 2 |
-| Analyse de l'overfitting | 5 |
-
 ## Commandes Utiles
 
 ```bash
@@ -173,6 +163,8 @@ uv run train_oracle.py
 Après avoir maîtrisé la prédiction basée sur les statistiques, la Guilde vous confie une mission plus complexe : analyser les **journaux de donjon** pour prédire la survie des aventuriers.
 
 Cette fois, ce n'est plus un simple tableau de stats, mais une **séquence d'événements** !
+
+> La meilleur équipe sera celle qui arrive a la meilleur accuracy mais avec le model le plus petit possible !
 
 ### Structure des Données
 
@@ -228,12 +220,6 @@ Entree -> Rat -> Potion -> Coffre -> Gobelin -> Dragon -> Sortie
 - L'`Epee_Legendaire` trouvée tôt facilite **tous** les combats suivants
 - La `fatigue` s'accumule : trop de combats sans repos = danger
 
-#### PIÈGES PÉDAGOGIQUES
-
-1. **Modèles sans mémoire** : Un simple MLP ne peut pas capturer l'ordre
-2. **Vanishing gradient** : Les RNN simples oublient le début de la séquence
-3. **Overfitting** : Mémoriser des séquences exactes ≠ comprendre les patterns
-
 *"L'ordre des épreuves détermine le destin de l'aventurier."*
 — Inscription sur les Archives Interdites
 
@@ -241,83 +227,24 @@ Entree -> Rat -> Potion -> Coffre -> Gobelin -> Dragon -> Sortie
 
 ### Architecture Baseline : DungeonOracle
 
-Le modèle de base utilise :
-- **Embedding** : Convertit les tokens en vecteurs denses
-- **RNN/LSTM** : Traite la séquence de manière récurrente
-- **Classifier** : Prédit la survie à partir de l'état final
-
-```python
-# Modes disponibles
---mode linear  # Baseline : embeddings aplatis (pas de récurrence)
---mode rnn     # RNN simple (souffre du vanishing gradient)
---mode lstm    # LSTM (recommandé pour longues séquences)
-```
-
-### Problèmes Volontaires à Corriger
-
-Le code baseline contient des **erreurs pédagogiques** :
-
-| Problème | Impact | Solution |
-|----------|--------|----------|
-| `embed_dim=8` trop petit | Perte d'information sémantique | Augmenter à 32-64 |
-| `num_layers=1` | Difficile de capturer les patterns complexes | 2-3 couches |
-| `dropout=0.0` | Overfitting | Ajouter 0.2-0.5 |
-| Mode `linear` par défaut | Ignore l'ordre des événements | Utiliser `lstm` |
-| Pas de bidirectionnel | Ne voit pas le contexte futur | `--bidirectional` |
+A vous d'explorer le code pour trouver le meilleur moyen de crée votre model le plus petit mais également le plus performant !
 
 ### Commandes d'Entraînement
 
 ```bash
 # Entraînement baseline (non optimal)
 uv run train_dungeon_logs.py
-
-# Entraînement amélioré
-uv run train_dungeon_logs.py \
-    --mode lstm \
-    --embed_dim 32 \
-    --hidden_dim 64 \
-    --num_layers 2 \
-    --dropout 0.3 \
-    --bidirectional \
-    --learning_rate 0.001 \
-    --epochs 50 \
-    --early_stopping \
-    --patience 10 \
-    --use_scheduler
-
-# Voir toutes les options
-uv run train_dungeon_logs.py --help
 ```
 
 ### Règles du Tournoi Dungeon
 
-1. **Complétez** le modèle `DungeonOracle` dans `baseline_model.py`
-2. **Entraînez** avec `uv run train_dungeon_logs.py`
-3. **Soumettez** votre fichier `.pt` sur l'interface : `uv run app_leaderboard_dungeon.py`
-4. Le classement est basé sur un **dataset secret** !
+Trouver le meilleur model mais également le plus petit !
 
 ### Le Twist
 
 Le dataset de test secret contient des séquences de donjons **plus longues** et avec des **patterns inédits**...
 
 Les modèles qui ont mémorisé les séquences d'entraînement échoueront !
-
-### Questions à se Poser
-
-- Mon modèle capture-t-il vraiment l'**ordre** des événements ?
-- Les dépendances **long-terme** sont-elles apprises ? (LSTM vs RNN)
-- Mon modèle **généralise**-t-il à des séquences plus longues ?
-- Est-ce que le **bidirectionnel** aide pour ce problème ?
-
-### Critères d'Évaluation TP3
-
-| Critère | Points |
-|---------|--------|
-| Modèle LSTM/RNN fonctionnel | 5 |
-| Accuracy validation > 75% | 3 |
-| Accuracy test secret > 70% | 5 |
-| Analyse RNN vs LSTM vs Bidirectionnel | 5 |
-| Code propre et commenté | 2 |
 
 ---
 
