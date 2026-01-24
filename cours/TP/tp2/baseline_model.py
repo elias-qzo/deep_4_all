@@ -81,8 +81,8 @@ class DungeonOracle(nn.Module):
     def __init__(
             self,
             vocab_size: int,
-            embed_dim: int = 8,
-            hidden_dim: int = 64,
+            embed_dim: int = 2,
+            hidden_dim: int = 258,
             num_layers: int = 1,
             dropout: float = 0.0,
             mode: str = "linear",
@@ -123,10 +123,10 @@ class DungeonOracle(nn.Module):
                 nn.Linear(max_length * embed_dim, hidden_dim),
                 nn.ReLU(),
                 nn.Dropout(dropout),
-                nn.Linear(hidden_dim, hidden_dim // 2),
+                nn.Linear(hidden_dim, hidden_dim),
                 nn.ReLU(),
                 nn.Dropout(dropout),
-                nn.Linear(hidden_dim // 2, 1)  # Sortie directe pour comparaison
+                nn.Linear(hidden_dim, 1)  # Sortie directe pour comparaison
                 )
         if self.mode != "linear":
             # Couche récurrente

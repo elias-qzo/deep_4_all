@@ -436,11 +436,11 @@ if __name__ == "__main__":
 
     # Modèle
     parser.add_argument(
-            '--embed_dim', type=int, default=8,
+            '--embed_dim', type=int, default=258,
             help='Dimension des embeddings'
             )
     parser.add_argument(
-            '--hidden_dim', type=int, default=8,
+            '--hidden_dim', type=int, default=258,
             help='Dimension de l\'état caché RNN/LSTM'
             )
     parser.add_argument(
@@ -464,7 +464,7 @@ if __name__ == "__main__":
 
     # Entraînement
     parser.add_argument(
-            '--epochs', type=int, default=20,
+            '--epochs', type=int, default=6,
             help='Nombre d\'epochs'
             )
     parser.add_argument(
@@ -472,11 +472,11 @@ if __name__ == "__main__":
             help='Taille du batch'
             )
     parser.add_argument(
-            '--learning_rate', type=float, default=0.001,
+            '--learning_rate', type=float, default=0.1,
             help='Learning rate'
             )
     parser.add_argument(
-            '--optimizer', type=str, default='adam',
+            '--optimizer', type=str, default='sgd',
             choices=['adam', 'sgd'],
             help='Optimiseur'
             )
