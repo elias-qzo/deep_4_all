@@ -34,10 +34,6 @@ class OracleEvaluator(ModelEvaluator):
         self.input_dim = input_dim
         self.batch_size = batch_size
 
-    def create_test_input(self) -> torch.Tensor:
-        """Crée un tensor de test (batch=2 pour BatchNorm)."""
-        return torch.randn(2, self.input_dim)
-
     def evaluate(self, model: nn.Module, data_path: str) -> dict:
         """Évalue un modèle sur le dataset Oracle."""
         dataset = AdventurerDataset(data_path, normalize=True)

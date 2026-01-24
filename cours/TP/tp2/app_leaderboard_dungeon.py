@@ -30,9 +30,8 @@ from leaderboard_base import (
 class DungeonEvaluator(ModelEvaluator):
     """Évaluateur pour le dataset Dungeon (séquences)."""
 
-    def __init__(self, vocab_path: str, max_length: int = 128, batch_size: int = 64):
+    def __init__(self, vocab_path: str, batch_size: int = 64):
         self.vocab_path = vocab_path
-        self.max_length = max_length
         self.batch_size = batch_size
 
         # Charger le vocabulaire pour connaître sa taille
@@ -40,17 +39,11 @@ class DungeonEvaluator(ModelEvaluator):
             self.vocab = json.load(f)
         self.vocab_size = len(self.vocab)
 
-    def create_test_input(self) -> torch.Tensor:
-        """Crée un tensor de test (séquences de tokens)."""
-        # Batch de 2 séquences aléatoires
-        return torch.randint(0, self.vocab_size, (2, self.max_length))
-
     def evaluate(self, model: nn.Module, data_path: str) -> dict:
         """Évalue un modèle sur le dataset Dungeon."""
         dataset = DungeonLogDataset(
             data_path,
-            vocab_path=self.vocab_path,
-            max_length=self.max_length
+            vocab_path=self.vocab_path
         )
         dataloader = DataLoader(dataset,
                                 batch_size=self.batch_size,
@@ -153,8 +146,7 @@ if __name__ == "__main__":
         exit(1)
 
     evaluator = DungeonEvaluator(
-        vocab_path=str(vocab_path),
-        max_length=128
+        vocab_path=str(vocab_path)
     )
     app = LeaderboardApp(CONFIG, evaluator)
     app.launch(share=False)

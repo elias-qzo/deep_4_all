@@ -231,13 +231,11 @@ def main(args):
     print("Chargement des données...")
     train_dataset = DungeonLogDataset(
             str(train_path),
-            str(vocab_path),
-            max_length=args.max_length
+            str(vocab_path)
             )
     val_dataset = DungeonLogDataset(
             str(val_path),
-            str(vocab_path),
-            max_length=args.max_length
+            str(vocab_path)
             )
 
     # DataLoaders
@@ -272,6 +270,7 @@ def main(args):
             num_layers=args.num_layers,
             dropout=args.dropout,
             mode=args.mode,
+            max_length=train_dataset.max_length,
             bidirectional=args.bidirectional,
             padding_idx=train_dataset.pad_idx,
             )
@@ -427,13 +426,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
             description="Entraînement de l'Oracle du Donjon (Séquences)"
             )
-
-    # Données
-    parser.add_argument(
-            '--max_length', type=int, default=140,
-            help='Longueur max des séquences (truncate)'
-            )
-
     # Modèle
     parser.add_argument(
             '--embed_dim', type=int, default=258,
