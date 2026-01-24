@@ -14,7 +14,7 @@ import torch.nn as nn
 
 
 # ============================================================================
-# TP1 : Modèle MLP pour stats d'aventuriers
+# TP2 : Modèle MLP pour stats d'aventuriers
 # ============================================================================
 
 
@@ -61,7 +61,7 @@ class GuildOracle(nn.Module):
 
 
 # ============================================================================
-# TP2 : Modèle LSTM pour séquences de donjon
+# TP3 : Modèle LSTM pour séquences de donjon
 # ============================================================================
 
 
