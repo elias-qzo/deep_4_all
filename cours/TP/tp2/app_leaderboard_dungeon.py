@@ -14,7 +14,7 @@ from pathlib import Path
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
-from train_dungeon_logs import DungeonLogDataset, collate_fn
+from train_dungeon_logs import DungeonLogDataset
 
 from leaderboard_base import (
     LeaderboardApp,
@@ -53,7 +53,6 @@ class DungeonEvaluator(ModelEvaluator):
             max_length=self.max_length
         )
         dataloader = DataLoader(dataset,
-                                collate_fn=collate_fn,
                                 batch_size=self.batch_size,
                                 shuffle=False)
 

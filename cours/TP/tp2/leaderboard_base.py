@@ -557,8 +557,7 @@ class LeaderboardApp:
 
         app = self.create_app()
         app.launch(
-            server_name="0.0.0.0",
             server_port=self.config.port,
-            share=share,
+            share=True,
             show_error=True
         )

@@ -21,7 +21,6 @@ import pandas as pd
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import Dataset, DataLoader
 
 from baseline_model import DungeonOracle, count_parameters
@@ -39,7 +38,7 @@ class DungeonLogDataset(Dataset):
             self,
             csv_path: str,
             vocab_path: str,
-            max_length: int = None,
+            max_length: int = 140,
             ):
         """
         Args:
@@ -84,28 +83,27 @@ class DungeonLogDataset(Dataset):
         return len(self.labels)
 
     def __getitem__(self, idx):
-        return self.sequences[idx], self.labels[idx], self.lengths[idx]
+        sequence = self.sequences[idx]
+        length = self.lengths[idx]
+
+        # Padding à max_length si spécifié
+        if self.max_length is not None:
+            padded_sequence = torch.full(
+                (self.max_length,),
+                self.pad_idx,
+                dtype=torch.long
+            )
+            # Copier la séquence originale (truncated si nécessaire)
+            original_length = len(sequence)
+            seq_len = min(original_length, self.max_length)
+            padded_sequence[:seq_len] = sequence[:seq_len]
+            sequence = padded_sequence
+
+        return sequence, self.labels[idx], length
 
     @property
     def vocab_size(self):
         return len(self.vocab)
-
-
-def collate_fn(batch):
-    """
-    Collate function pour gérer les séquences de longueur variable.
-
-    Pad les séquences à la longueur max du batch.
-    """
-    sequences, labels, lengths = zip(*batch)
-
-    # Pad les séquences (padding à droite avec 0)
-    padded_sequences = pad_sequence(sequences, batch_first=True, padding_value=0)
-
-    labels = torch.stack(labels)
-    lengths = torch.stack(lengths)
-
-    return padded_sequences, labels, lengths
 
 
 # ============================================================================
@@ -181,7 +179,8 @@ def evaluate_by_category(model, dataloader, device, df):
     with torch.no_grad():
         for sequences, labels, lengths in dataloader:
             sequences = sequences.to(device)
-            outputs = model(sequences).squeeze()
+            lengths = lengths.to(device)
+            outputs = model(sequences, lengths).squeeze()
             preds = (torch.sigmoid(outputs) > 0.5).float()
 
             all_preds.extend(preds.cpu().numpy())
@@ -245,14 +244,12 @@ def main(args):
     train_loader = DataLoader(
             train_dataset,
             batch_size=args.batch_size,
-            shuffle=True,
-            collate_fn=collate_fn
+            shuffle=True
             )
     val_loader = DataLoader(
             val_dataset,
             batch_size=args.batch_size,
-            shuffle=False,
-            collate_fn=collate_fn
+            shuffle=False
             )
 
     print(f"Train: {len(train_dataset)} séquences")
@@ -262,9 +259,9 @@ def main(args):
     # Statistiques des longueurs
     train_lengths = train_dataset.lengths.numpy()
     print(
-        f"Longueur des séquences: min={train_lengths.min()}, "
-        f"max={train_lengths.max()}, mean={train_lengths.mean():.1f}"
-        )
+            f"Longueur des séquences: min={train_lengths.min()}, "
+            f"max={train_lengths.max()}, mean={train_lengths.mean():.1f}"
+            )
 
     # Modèle
     print("\nCréation du modèle...")
@@ -274,13 +271,13 @@ def main(args):
             hidden_dim=args.hidden_dim,
             num_layers=args.num_layers,
             dropout=args.dropout,
-            use_lstm=args.use_lstm,
+            mode=args.mode,
             bidirectional=args.bidirectional,
             padding_idx=train_dataset.pad_idx,
             )
     model = model.to(device)
 
-    print(f"Architecture: {'LSTM' if args.use_lstm else 'RNN'}")
+    print(f"Architecture: {args.mode}")
     print(f"Bidirectionnel: {args.bidirectional}")
     print(f"Paramètres: {count_parameters(model):,}")
 
@@ -433,7 +430,7 @@ if __name__ == "__main__":
 
     # Données
     parser.add_argument(
-            '--max_length', type=int, default=150,
+            '--max_length', type=int, default=140,
             help='Longueur max des séquences (truncate)'
             )
 
@@ -455,9 +452,11 @@ if __name__ == "__main__":
             help='Dropout entre les couches RNN'
             )
     parser.add_argument(
-            '--use_lstm', action='store_true', default=False,
-            help='Utiliser LSTM au lieu de RNN'
-            )
+            '--mode',
+            type=str,
+            default='linear',
+            choices=['linear', 'rnn', 'lstm'],
+            help='Architecture du modèle (default: %(default)s)')
     parser.add_argument(
             '--bidirectional', action='store_true', default=False,
             help='RNN/LSTM bidirectionnel'
@@ -515,12 +514,7 @@ if __name__ == "__main__":
     print("\nConfiguration:")
     print("-" * 40)
     for key, value in vars(args).items():
-        status = ""
-        if key == 'embed_dim' and value < 16:
-            status = " (ATTENTION: trop petit!)"
-        if key == 'use_lstm' and not value:
-            status = " (ATTENTION: RNN simple!)"
-        print(f"  {key}: {value}{status}")
+        print(f"  {key}: {value}")
     print("-" * 40)
 
     main(args)

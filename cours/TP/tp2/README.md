@@ -26,7 +26,7 @@ tp2/
     └── val.csv
 ```
 
-## Partie 1 : Introduction à PyTorch (13h30 - 15h30)
+## Partie 1 : Introduction à PyTorch
 
 ### Étape 1 : Comprendre les tenseurs
 
@@ -163,3 +163,7 @@ uv run train_oracle.py
 ---
 
 *Que la chance soit avec vous, jeune Oracle !*
+
+---
+
+TP3 

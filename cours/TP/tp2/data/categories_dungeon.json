@@ -31,7 +31,8 @@
     "Fosse",
     "Gaz_Toxique",
     "Rocher_Roulant",
-    "Dalle_Piege"
+    "Dalle_Piege",
+    "Nuage_Toxique"
   ],
   "treasure": [
     "Coffre",
