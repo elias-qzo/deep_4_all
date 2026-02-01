@@ -499,21 +499,21 @@ def _(mo):
 
     ### La solution : La Règle de la Chaîne (*Chain Rule*)
 
-        #### 1. Version mathématique simple
+    #### 1. Version mathématique simple
 
-        Si on a une composition de fonctions $y = f(g(x))$, alors :
+    Si on a une composition de fonctions $y = f(g(x))$, alors :
 
-        $$\frac{dy}{dx} = \frac{dy}{dg} \cdot \frac{dg}{dx}$$
+    $$\frac{dy}{dx} = \frac{dy}{dg} \cdot \frac{dg}{dx}$$
 
-        **Exemple concret :** Soit $y = (2x + 1)^3$
+    **Exemple concret :** Soit $y = (2x + 1)^3$
 
-        On pose $g(x) = 2x + 1$ et $f(g) = g^3$, donc $y = f(g(x))$.
+    On pose $g(x) = 2x + 1$ et $f(g) = g^3$, donc $y = f(g(x))$.
 
-        | Étape | Calcul | Résultat |
-        | :---: | :--- | :--- |
-        | 1 | $\frac{dg}{dx} = \frac{d(2x+1)}{dx}$ | $2$ |
-        | 2 | $\frac{dy}{dg} = \frac{d(g^3)}{dg}$ | $3g^2$ |
-        | 3 | $\frac{dy}{dx} = \frac{dy}{dg} \cdot \frac{dg}{dx}$ | $3g^2 \cdot 2 = 6(2x+1)^2$ |
+    | Étape | Calcul | Résultat |
+    | :---: | :--- | :--- |
+    | 1 | $\frac{dg}{dx} = \frac{d(2x+1)}{dx}$ | $2$ |
+    | 2 | $\frac{dy}{dg} = \frac{d(g^3)}{dg}$ | $3g^2$ |
+    | 3 | $\frac{dy}{dx} = \frac{dy}{dg} \cdot \frac{dg}{dx}$ | $3g^2 \cdot 2 = 6(2x+1)^2$ |
 
     ---
 
