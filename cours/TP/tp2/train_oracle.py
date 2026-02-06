@@ -64,8 +64,8 @@ class AdventurerDataset(Dataset):
 # Boucle d'entraînement
 # ============================================================================
 
-def train_epoch(model, dataloader, criterion, optimizer, device):
-    """Entraîne le modèle pour une epoch."""
+def train_epoch(model, dataloader, criterion, optimizer, device, l1_lambda=0.0):
+    """Entraîne le modèle pour une epoch avec régularisation L1/L2."""
     model.train()
     total_loss = 0
     correct = 0
@@ -78,8 +78,13 @@ def train_epoch(model, dataloader, criterion, optimizer, device):
         optimizer.zero_grad()
         outputs = model(features).squeeze()
 
-        # Loss et backward
+        # Loss de base (Binary Cross Entropy)
         loss = criterion(outputs, labels)
+
+        if l1_lambda > 0:
+            l1_norm = sum(p.abs().sum() for p in model.parameters())
+            loss = loss + l1_lambda * l1_norm
+        
         loss.backward()
         optimizer.step()
 
@@ -90,7 +95,6 @@ def train_epoch(model, dataloader, criterion, optimizer, device):
         total += len(labels)
 
     return total_loss / total, correct / total
-
 
 def evaluate(model, dataloader, criterion, device):
     """Évalue le modèle."""
@@ -201,7 +205,8 @@ def main(args):
     for epoch in range(args.epochs):
         # Train
         train_loss, train_acc = train_epoch(
-                model, train_loader, criterion, optimizer, device
+                model, train_loader, criterion, optimizer, device, 
+                l1_lambda=args.l1_lambda
                 )
 
         # Validation
@@ -332,6 +337,10 @@ if __name__ == "__main__":
     parser.add_argument(
             '--weight_decay', type=float, default=0.0,
             help='Weight decay (L2 regularization)'
+            )
+    parser.add_argument(
+            '--l1_lambda', type=float, default=0.0,
+            help='Coefficient pour la régularisation L1 (Lasso)'
             )
 
     # Early stopping
