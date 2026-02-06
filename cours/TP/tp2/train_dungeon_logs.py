@@ -111,7 +111,7 @@ class DungeonLogDataset(Dataset):
 # ============================================================================
 
 
-def train_epoch(model, dataloader, criterion, optimizer, device):
+def train_epoch(model, dataloader, criterion, optimizer, device, scheduler=None): # <--- Ajout de l'argument
     """Entraîne le modèle pour une epoch."""
     model.train()
     total_loss = 0
@@ -135,6 +135,9 @@ def train_epoch(model, dataloader, criterion, optimizer, device):
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 
         optimizer.step()
+        
+        if scheduler is not None:
+            scheduler.step()
 
         # Statistiques
         total_loss += loss.item() * len(labels)
@@ -300,9 +303,15 @@ def main(args):
     # Scheduler (optionnel)
     scheduler = None
     if args.use_scheduler:
-        scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-                optimizer, mode='max', factor=0.5, patience=5, verbose=True
-                )
+        scheduler = optim.lr_scheduler.OneCycleLR(
+            optimizer,
+            max_lr=args.learning_rate * 10, 
+            steps_per_epoch=len(train_loader),
+            epochs=args.epochs,
+            pct_start=0.3,
+            div_factor=25.0,
+            final_div_factor=10000.0
+        )
 
     print(f"Optimiseur: {args.optimizer.upper()}, LR: {args.learning_rate}")
 
@@ -323,15 +332,15 @@ def main(args):
     for epoch in range(args.epochs):
         # Train
         train_loss, train_acc = train_epoch(
-                model, train_loader, criterion, optimizer, device
+                model, train_loader, criterion, optimizer, device, scheduler=scheduler
                 )
 
         # Validation
         val_loss, val_acc = evaluate(model, val_loader, criterion, device)
 
-        # Scheduler
-        if scheduler:
-            scheduler.step(val_acc)
+        # # Scheduler
+        # if scheduler:
+        #     scheduler.step(val_acc)
 
         # Historique
         history['train_loss'].append(train_loss)
