@@ -158,7 +158,9 @@ def main(args):
     print("\nCréation du modèle...")
     model = GuildOracle(
             input_dim=train_dataset.features.shape[1],
-            hidden_dim=args.hidden_dim
+            hidden_dim=args.hidden_dim,
+            num_layers=args.num_layers,
+            dropout=args.dropout
             )
     model = model.to(device)
     print(f"Paramètres: {count_parameters(model):,}")
@@ -297,8 +299,16 @@ if __name__ == "__main__":
 
     # Modèle
     parser.add_argument(
-            '--hidden_dim', type=int, default=256,
+            '--hidden_dim', type=int, default=8,
             help='Dimension des couches cachées'
+            )
+    parser.add_argument(
+            '--num_layers', type=int, default=1,
+            help='Nombre de couches cachées (0 = modèle linéaire)'
+            )
+    parser.add_argument(
+            '--dropout', type=float, default=0.3,
+            help='Taux de dropout'
             )
 
     # Entraînement
