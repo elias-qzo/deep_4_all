@@ -253,3 +253,48 @@ Les modèles qui ont mémorisé les séquences d'entraînement échoueront !
 ---
 
 *Que les Archives vous guident, jeune Oracle !*
+
+```
+uv run train_oracle.py --normalize --shuffle --hidden_dim 64 --learning_rate 0.001 --epochs 50 --early_stopping --weight_decay 0.01
+
+89 -> uv run train_oracle.py --normalize --shuffle --num_layers 0 --epochs 100 --early_stopping --weight_decay 0.1 --learning_rate 0.01
+
+jsplu -> uv run train_oracle.py --normalize --shuffle --hidden_dim 8 --num_layers 1 --dropout 0.5 --epochs 100 --early_stopping --weight_decay 0.1 --optimizer sgd --learning_rate 0.05
+
+89.5 -> uv run train_oracle.py --normalize --shuffle --hidden_dim 16 --num_layers 1 --dropout 0.4 --epochs 100 --early_stopping --weight_decay 0.05 --optimizer sgd --learning_rate 0.1
+
+uv run train_oracle.py --normalize --shuffle --hidden_dim 250 --num_layers 1 --dropout 0.5 --epochs 100 --early_stopping --weight_decay 0.01 --learning_rate 0.001
+
+uv run train_oracle.py --normalize --shuffle --hidden_dim 35 --num_layers 3 --dropout 0.3 --epochs 100 --early_stopping --weight_decay 0.01 --learning_rate 0.001
+```
+
+```
+  V1 - Plus de dropout :
+uv run train_oracle.py --normalize --shuffle --hidden_dim 16 --num_layers 1 --dropout 0.5 --epochs 100 --early_stopping --weight_decay 0.05 --optimizer sgd --learning_rate 0.1
+
+  V2 - Plus de weight_decay : pas mal
+uv run train_oracle.py --normalize --shuffle --hidden_dim 16 --num_layers 1 --dropout 0.4 --epochs 100 --early_stopping --weight_decay 0.1 --optimizer sgd --learning_rate 0.1
+
+  V3 - Les deux : vraiment bien
+uv run train_oracle.py --normalize --shuffle --hidden_dim 16 --num_layers 1 --dropout 0.55 --epochs 100 --early_stopping --weight_decay 0.08 --optimizer sgd --learning_rate 0.1
+
+  V4 - Hidden dim réduit : THE BEST
+  uv run train_oracle.py --normalize --shuffle --hidden_dim 12 --num_layers 1 --dropout 0.4 --epochs 100 --early_stopping --weight_decay 0.05 --optimizer sgd --learning_rate 0.1
+
+  V5 - Learning rate plus bas (converge plus lentement) : très bien
+  uv run train_oracle.py --normalize --shuffle --hidden_dim 16 --num_layers 1 --dropout 0.4 --epochs 100 --early_stopping --weight_decay 0.05 --optimizer sgd --learning_rate 0.05
+
+  V6 - Combo agressif :
+  uv run train_oracle.py --normalize --shuffle --hidden_dim 12 --num_layers 1 --dropout 0.5 --epochs 100 --early_stopping --weight_decay 0.1 --optimizer sgd --learning_rate 0.
+  
+  uv run train_custom.py --dataset maudites_v1 --normalize --shuffle --hidden_dim 8 --num_layers 1 --dropout 0.2 --epochs 200 --optimizer sgd --learning_rate 0.1 --weight_decay 0.1
+```
+
+```
+maudit -82.33 79 83
+intel_heavy, 77 73 77
+chance_heavy 74 76 70
+agility_heavy 75 72 79.33 76
+force_punished 66 71 68
+banlanced_no_force 78 79.33 84.7
+```

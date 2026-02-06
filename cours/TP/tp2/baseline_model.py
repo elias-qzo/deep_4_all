@@ -20,21 +20,43 @@ import torch.nn as nn
 
 class GuildOracle(nn.Module):
     """
-    Modèle baseline pour prédire la survie des aventuriers.
+    Modèle pour prédire la survie des aventuriers.
 
-    Architecture : MLP profond (trop profond !)
+    Architecture : MLP avec BatchNorm pour meilleure généralisation.
     """
 
-    def __init__(self, input_dim: int = 8, hidden_dim: int = 256, num_layers: int = 5):
+    def __init__(self, input_dim: int = 8, hidden_dim: int = 8, num_layers: int = 1, dropout: float = 0.3):
         """
         Args:
             input_dim: Nombre de features (8 stats)
             hidden_dim: Dimension des couches cachées
             num_layers: Nombre de couches cachées
+            dropout: Taux de dropout pour régularisation
         """
         super().__init__()
-        # TODO
-        self.network = nn.Sequential()
+
+        if num_layers == 0:
+            # Modèle purement linéaire (régression logistique)
+            self.network = nn.Linear(input_dim, 1)
+        else:
+            layers = []
+            # Couche d'entrée avec BatchNorm
+            layers.append(nn.Linear(input_dim, hidden_dim))
+            layers.append(nn.BatchNorm1d(hidden_dim))
+            layers.append(nn.ReLU())
+            layers.append(nn.Dropout(dropout))
+
+            # Couches cachées
+            for _ in range(num_layers - 1):
+                layers.append(nn.Linear(hidden_dim, hidden_dim))
+                layers.append(nn.BatchNorm1d(hidden_dim))
+                layers.append(nn.ReLU())
+                layers.append(nn.Dropout(dropout))
+
+            # Couche de sortie
+            layers.append(nn.Linear(hidden_dim, 1))
+
+            self.network = nn.Sequential(*layers)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """
