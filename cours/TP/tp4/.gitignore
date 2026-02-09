@@ -1,3 +1,6 @@
 .env
 data/*
 outputs/*
+venv/
+CLAUDE.md
+.claude/
