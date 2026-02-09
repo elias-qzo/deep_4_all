@@ -86,10 +86,40 @@ uv run train_dungeon_logs.py \
     --optimizer adam \
     --learning_rate 0.001 \
     --weight_decay 0.0001 \
-    --epochs 100 \
+    --epochs 200 \
     --early_stopping \
     --patience 7 \
     --use_scheduler
 ```
 
-En fixant `--epochs 100` avec `--patience 7`, l'entraînement continue tant que le modèle progresse et s'arrête automatiquement 7 epochs après le dernier meilleur score. Cela permet de trouver le point optimal sans risquer l'overfitting, et sans avoir à deviner manuellement le bon nombre d'epochs.
+En fixant `--epochs 200` avec `--patience 7`, l'entraînement continue tant que le modèle progresse et s'arrête automatiquement 7 epochs après le dernier meilleur score. Cela permet de trouver le point optimal sans risquer l'overfitting, et sans avoir à deviner manuellement le bon nombre d'epochs.
+
+Avec cette configuration (7K+ paramètres), l'early stopping s'est déclenché à l'epoch 76 et nous avons atteint une accuracy de validation de ~97%.
+
+## 5. Réduction de la taille du modèle
+
+Ayant atteint 97% d'accuracy avec 34K paramètres, nous avons cherché à réduire la taille du modèle. Nous avons d'abord corrigé un problème dans `baseline_model.py` : le réseau linéaire `solo_embeddings` était instancié même en mode LSTM, ajoutant des paramètres inutiles au checkpoint. Nous avons conditionné sa création au mode `linear` uniquement.
+
+Ensuite, nous avons réduit les dimensions du modèle :
+- `embed_dim` : 32 → 16 (le vocabulaire du donjon est petit, ~30 tokens, des embeddings de dimension 16 suffisent)
+- `hidden_dim` : 64 → 32 (le hidden_dim intervient au carré dans le calcul des paramètres LSTM, c'est le levier le plus impactant)
+- `num_layers` : 3 → 2 (deux couches LSTM suffisent pour capturer les patterns, la troisième apporte peu de gain en accuracy)
+
+```bash
+uv run train_dungeon_logs.py \
+    --mode lstm \
+    --bidirectional \
+    --num_layers 2 \
+    --embed_dim 16 \
+    --hidden_dim 32 \
+    --dropout 0.3 \
+    --optimizer adam \
+    --learning_rate 0.001 \
+    --weight_decay 0.0001 \
+    --epochs 200 \
+    --early_stopping \
+    --patience 7 \
+    --use_scheduler
+```
+
+L'objectif est de vérifier si un modèle plus léger (~42K → ~18K paramètres) peut atteindre des performances comparables, tout en étant plus rapide à entraîner sur CPU et produisant un checkpoint plus petit.
