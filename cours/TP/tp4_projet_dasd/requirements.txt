@@ -1,0 +1,14 @@
+# requirements.txt
+torch
+transformers
+bitsandbytes
+accelerate
+peft
+datasets
+openai
+nltk
+scipy
+tiktoken
+sentencepiece
+protobuf
+llamafactory
