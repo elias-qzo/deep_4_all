@@ -1,2 +1,5 @@
 __pycache__
 checkpoints/
+data/*
+!data/categories_dungeon.json
+!data/vocabulary_dungeon.json
