@@ -1,0 +1,112 @@
+[
+  {
+    "prompt": "Mimi picked up 2 dozen seashells on the beach.  Kyle found twice as many shells as Mimi and put them in his pocket. Leigh grabbed one-third of the shells that Kyle found.  How many seashells did Leigh have?",
+    "full_teacher_response": "<reasoning>\n1. **Mimi’s shells**:  \n   - “2 dozen” means \\(2 \\times 12 = 24\\) seashells.\n\n2. **Kyle’s shells**:  \n   - He found twice as many as Mimi, so  \n   \\[\n   2 \\times 24 = 48 \\text{ shells}.\n   \\]\n\n3. **Leigh’s shells**:  \n   - She grabbed one‑third of the shells that Kyle found:  \n   \\[\n   \\frac{1}{3} \\times 48 = 16 \\text{ shells}.\n   \\]\n\nThus, Leigh has **16 seashells**.\n</reasoning>\n\n**Answer: 16**",
+    "filtered_response": "<reasoning>\n1. **Mimi’s shells**:  \n   - “2 dozen” means \\(2 \\times 12 = 24\\) seashells. 2. **Kyle’s shells**:  \n   - He found twice as many as Mimi, so  \n   \\[\n   2 \\times 24 = 48 \\text{ shells}. \\]\n\n3. **Leigh’s shells**:  \n   - She grabbed one‑third of the shells that Kyle found:  \n   \\[\n   \\frac{1}{3} \\times 48 = 16 \\text{ shells}. \\]\n\nThus, Leigh has **16 seashells**. </reasoning>\n\n**Answer: 16**",
+    "stats": {
+      "teacher_mean_logprob": -0.14902142079297667,
+      "teacher_total_logprob": -42.024040663619424,
+      "length_original": 411,
+      "length_filtered": 404
+    }
+  },
+  {
+    "prompt": "Frankie's parents let him have many pets. He has six more snakes than he has cats. He has one less parrot than cats. Six of his pets have four legs. He has 2 dogs. How many pets does he have in total?",
+    "full_teacher_response": "**Step‑by‑step reasoning**\n\nLet  \n\n- \\(C\\) = number of cats  \n- \\(S\\) = number of snakes  \n- \\(P\\) = number of parrots  \n- \\(D\\) = number of dogs  \n\nThe problem gives the following relations:\n\n1. “He has six more snakes than he has cats.”  \n   \\[\n   S = C + 6\n   \\]\n\n2. “He has one less parrot than cats.”  \n   \\[\n   P = C - 1\n   \\]\n\n3. “Six of his pets have four legs.”  \n   Only cats and dogs have four legs, so  \n   \\[\n   C + D = 6\n   \\]\n\n4. “He has 2 dogs.”  \n   \\[\n   D = 2\n   \\]\n\n---\n\n**Find the number of cats**\n\nFrom (3) and (4):\n\\[\nC + 2 = 6 \\quad\\Longrightarrow\\quad C = 4\n\\]\n\n**Find the other animals**\n\n- Snakes: \\(S = C + 6 = 4 + 6 = 10\\)\n- Parrots: \\(P = C - 1 = 4 - 1 = 3\\)\n- Dogs: \\(D = 2\\) (given)\n\n**Total number of pets**\n\n\\[\n\\text{Total} = C + S + P + D = 4 + 10 + 3 + 2 = 19\n\\]\n\n---\n\n\\[\n\\boxed{19}\n\\]",
+    "filtered_response": "**Step‑by‑step reasoning**\n\nLet  \n\n- \\(C\\) = number of cats  \n- \\(S\\) = number of snakes  \n- \\(P\\) = number of parrots  \n- \\(D\\) = number of dogs  \n\nThe problem gives the following relations:\n\n1. “He has six more snakes than he has cats.”  \n   \\[\n   S = C + 6\n   \\]\n\n2. “Six of his pets have four legs.”  \n   Only cats and dogs have four legs, so  \n   \\[\n   C + D = 6\n   \\]\n\n4. “He has 2 dogs.”  \n   \\[\n   D = 2\n   \\]\n\n---\n\n**Find the number of cats**\n\nFrom (3) and (4):\n\\[\nC + 2 = 6 \\quad\\Longrightarrow\\quad C = 4\n\\]\n\n**Find the other animals**\n\n- Snakes: \\(S = C + 6 = 4 + 6 = 10\\)\n- Parrots: \\(P = C - 1 = 4 - 1 = 3\\)\n- Dogs: \\(D = 2\\) (given)\n\n**Total number of pets**\n\n\\[\n\\text{Total} = C + S + P + D = 4 + 10 + 3 + 2 = 19\n\\]\n\n---\n\n\\[\n\\boxed{19}\n\\]",
+    "stats": {
+      "teacher_mean_logprob": -0.18541976916987343,
+      "teacher_total_logprob": -132.94597449479926,
+      "length_original": 821,
+      "length_filtered": 754
+    }
+  },
+  {
+    "prompt": "Olaf collects colorful toy cars. At first, his collection consisted of 150 cars. His family, knowing his hobby, decided to give him some toy cars. Grandpa gave Olaf twice as many toy cars as the uncle. Dad gave Olaf 10 toy cars, 5 less than Mum. Auntie gave Olaf 6 toy cars, 1 more than the uncle. How many toy cars does Olaf have in total, after receiving all these gifts?",
+    "full_teacher_response": "**Step‑by‑step solution**\n\n1. **Introduce variables for each gift**\n\n   Let  \n\n   - \\(U\\) = number of cars the **uncle** gave,  \n   - \\(G\\) = number of cars the **grandpa** gave,  \n   - \\(D\\) = number of cars the **dad** gave,  \n   - \\(M\\) = number of cars the **mum** gave,  \n   - \\(A\\) = number of cars the **auntie** gave.\n\n2. **Translate the word conditions into equations**\n\n   - Grandpa gave twice as many as the uncle: \\(G = 2U\\)  \n   - Dad gave 10 cars and this is 5 less than mum’s gift: \\(D = 10\\) and \\(M = D + 5\\)  \n   - Auntie gave 6 cars and this is 1 more than the uncle’s gift: \\(A = 6\\) and \\(U = A - 1\\)\n\n3. **Solve for each variable**\n\n   - From \\(A = 6\\) we get the uncle’s amount:  \n     \\[\n     U = A - 1 = 6 - 1 = 5\n     \\]\n   - Using \\(G = 2U\\):  \n     \\[\n     G = 2 \\times 5 = 10\n     \\]\n   - Dad’s amount is given directly: \\(D = 10\\).  \n   - Mum’s amount:  \n     \\[\n     M = D + 5 = 10 + 5 = 15\n     \\]\n\n4. **List all the gifts**\n\n   \\[\n   \\begin{aligned}\n   \\text{Grandpa} &= 10 \\\\\n   \\text{Uncle}   &= 5 \\\\\n   \\text{Dad}     &= 10 \\\\\n   \\text{Mum}     &= 15 \\\\\n   \\text{Auntie}  &= 6\n   \\end{aligned}\n   \\]\n\n5. **Add up all the cars received**\n\n   \\[\n   \\text{Total gifts} = 10 + 5 + 10 + 15 + 6 = 46\n   \\]\n\n6. **Add the gifts to the original collection**\n\n   Olaf started with 150 cars, so his final total is\n\n   \\[\n   150 + 46 = 196.\n   \\]\n\n---\n\n\\[\n\\boxed{196}\n\\]",
+    "filtered_response": "**Step‑by‑step solution**\n\n1. **Introduce variables for each gift**\n\n   Let  \n\n   - \\(U\\) = number of cars the **uncle** gave,  \n   - \\(G\\) = number of cars the **grandpa** gave,  \n   - \\(D\\) = number of cars the **dad** gave,  \n   - \\(M\\) = number of cars the **mum** gave,  \n   - \\(A\\) = number of cars the **auntie** gave. 2. **Translate the word conditions into equations**\n\n   - Grandpa gave twice as many as the uncle: \\(G = 2U\\)  \n   - Dad gave 10 cars and this is 5 less than mum’s gift: \\(D = 10\\) and \\(M = D + 5\\)  \n   - Auntie gave 6 cars and this is 1 more than the uncle’s gift: \\(A = 6\\) and \\(U = A - 1\\)\n\n3. **Solve for each variable**\n\n   - From \\(A = 6\\) we get the uncle’s amount:  \n     \\[\n     U = A - 1 = 6 - 1 = 5\n     \\]\n   - Using \\(G = 2U\\):  \n     \\[\n     G = 2 \\times 5 = 10\n     \\]\n   - Dad’s amount is given directly: \\(D = 10\\). - Mum’s amount:  \n     \\[\n     M = D + 5 = 10 + 5 = 15\n     \\]\n\n4. **List all the gifts**\n\n   \\[\n   \\begin{aligned}\n   \\text{Grandpa} &= 10 \\\\\n   \\text{Uncle}   &= 5 \\\\\n   \\text{Dad}     &= 10 \\\\\n   \\text{Mum}     &= 15 \\\\\n   \\text{Auntie}  &= 6\n   \\end{aligned}\n   \\]\n\n5. **Add up all the cars received**\n\n   \\[\n   \\text{Total gifts} = 10 + 5 + 10 + 15 + 6 = 46\n   \\]\n\n6. **Add the gifts to the original collection**\n\n   Olaf started with 150 cars, so his final total is\n\n   \\[\n   150 + 46 = 196. \\]\n\n---\n\n\\[\n\\boxed{196}\n\\]",
+    "stats": {
+      "teacher_mean_logprob": -0.13422480548479807,
+      "teacher_total_logprob": -104.29267386168809,
+      "length_original": 1394,
+      "length_filtered": 1385
+    }
+  },
+  {
+    "prompt": "Emma's bank account has $100 in it. Each day of the week, she spends $8. At the end of the week, she goes to the bank and asks for as many $5 bills as her account can give her. She leaves the rest in the account. How many dollars remain in the account?",
+    "full_teacher_response": "<reasoning>\n1. **Initial balance:** Emma starts with \\$100.  \n2. **Weekly spending:** She spends \\$8 each day for 7 days.  \n   \\[\n   7 \\times 8 = 56 \\text{ dollars}\n   \\]  \n   After the week, her balance is  \n   \\[\n   100 - 56 = 44 \\text{ dollars}.\n   \\]\n3. **Withdrawal in \\$5 bills:** She wants only \\$5 bills. The bank can give her the largest multiple of 5 that does not exceed \\$44.  \n   \\[\n   \\text{Number of \\$5 bills} = \\left\\lfloor \\frac{44}{5} \\right\\rfloor = 8\n   \\]  \n   Amount withdrawn: \\(8 \\times 5 = 40\\) dollars.\n4. **Remaining balance:**  \n   \\[\n   44 - 40 = 4 \\text{ dollars}.\n   \\]\n\nThus, after the withdrawal, Emma has **\\$4** left in her account.\n</reasoning>\n\n**Answer:** 4 dollars remain in the account.",
+    "filtered_response": "<reasoning>\n1. **Initial balance:** Emma starts with \\$100. **Weekly spending:** She spends \\$8 each day for 7 days. \\[\n   7 \\times 8 = 56 \\text{ dollars}\n   \\]  \n   After the week, her balance is  \n   \\[\n   100 - 56 = 44 \\text{ dollars}. \\]\n3. **Withdrawal in \\$5 bills:** She wants only \\$5 bills. The bank can give her the largest multiple of 5 that does not exceed \\$44. \\[\n   \\text{Number of \\$5 bills} = \\left\\lfloor \\frac{44}{5} \\right\\rfloor = 8\n   \\]  \n   Amount withdrawn: \\(8 \\times 5 = 40\\) dollars. 4. **Remaining balance:**  \n   \\[\n   44 - 40 = 4 \\text{ dollars}. \\]\n\nThus, after the withdrawal, Emma has **\\$4** left in her account. </reasoning>\n\n**Answer:** 4 dollars remain in the account.",
+    "stats": {
+      "teacher_mean_logprob": -0.18884695409288318,
+      "teacher_total_logprob": -87.6249866990978,
+      "length_original": 727,
+      "length_filtered": 706
+    }
+  },
+  {
+    "prompt": "Ezekiel hikes as a hobby. This past summer, he did a challenging three-day hike across 50 kilometers of wilderness. The first day, he covered 10 kilometers of steep mountainside. The second day was flatter and he was able to cover half the full hike distance. How many kilometers did he have to hike on the third day to finish the hike?",
+    "full_teacher_response": "<reasoning>\nThe total distance of the hike is 50 km.\n\n**Day 1:**  \nEzekiel walked 10 km.\n\n**Day 2:**  \nHe covered “half the full hike distance.”  \nHalf of 50 km is  \n\n\\[\n\\frac{1}{2}\\times 50 = 25\\text{ km}.\n\\]\n\nSo on the second day he walked 25 km.\n\n**Distance already covered:**  \n\n\\[\n10\\text{ km} + 25\\text{ km} = 35\\text{ km}.\n\\]\n\n**Remaining distance for Day 3:**  \n\n\\[\n50\\text{ km} - 35\\text{ km} = 15\\text{ km}.\n\\]\n\nThus, Ezekiel must hike **15 kilometers** on the third day to finish the 50 km trek.\n</reasoning>\n\n**Answer:** 15 km.",
+    "filtered_response": "<reasoning>\nThe total distance of the hike is 50 km. **Day 1:**  \nEzekiel walked 10 km. **Day 2:**  \nHe covered “half the full hike distance.”  \nHalf of 50 km is  \n\n\\[\n\\frac{1}{2}\\times 50 = 25\\text{ km}. \\]\n\nSo on the second day he walked 25 km. **Distance already covered:**  \n\n\\[\n10\\text{ km} + 25\\text{ km} = 35\\text{ km}. \\]\n\n**Remaining distance for Day 3:**  \n\n\\[\n50\\text{ km} - 35\\text{ km} = 15\\text{ km}. \\]\n\nThus, Ezekiel must hike **15 kilometers** on the third day to finish the 50 km trek. </reasoning>\n\n**Answer:** 15 km.",
+    "stats": {
+      "teacher_mean_logprob": -0.17091456557338677,
+      "teacher_total_logprob": -60.33284164740553,
+      "length_original": 539,
+      "length_filtered": 536
+    }
+  },
+  {
+    "prompt": "James decides to build a tin house by collecting 500 tins in a week. On the first day, he collects 50 tins. On the second day, he manages to collect 3 times that number. On the third day, he collects 50 tins fewer than the number he collected on the second day. If he collects an equal number of tins on the remaining days of the week, what's the number of tins he collected each day for the rest of the week?",
+    "full_teacher_response": "<reasoning>\nThe problem gives the total number of tins collected in a week (7 days) and the amounts collected on the first three days.\n\n1. **First day:**  \n   James collects \\(50\\) tins.\n\n2. **Second day:**  \n   He collects three times the first‑day amount:  \n   \\[\n   3 \\times 50 = 150\\text{ tins}.\n   \\]\n\n3. **Third day:**  \n   He collects \\(50\\) tins fewer than on the second day:  \n   \\[\n   150 - 50 = 100\\text{ tins}.\n   \\]\n\n4. **Total after three days:**  \n   \\[\n   50 + 150 + 100 = 300\\text{ tins}.\n   \\]\n\n5. **Remaining days:**  \n   There are \\(7 - 3 = 4\\) days left in the week, and he collects the same number of tins each of those days.  \n   Let \\(x\\) be the number of tins collected per remaining day.\n\n   The total for the week must be \\(500\\) tins, so  \n   \\[\n   300 + 4x = 500.\n   \\]\n\n6. **Solve for \\(x\\):**  \n   \\[\n   4x = 500 - 300 = 200 \\quad\\Longrightarrow\\quad x = \\frac{200}{4} = 50.\n   \\]\n\nThus, on each of the remaining four days James collects **50 tins**.\n\n---\n\n**Answer:** He collected **50 tins per day** on each of the remaining days of the week.",
+    "filtered_response": "<reasoning>\nThe problem gives the total number of tins collected in a week (7 days) and the amounts collected on the first three days. 1. **First day:**  \n   James collects \\(50\\) tins. 2. **Second day:**  \n   He collects three times the first‑day amount:  \n   \\[\n   3 \\times 50 = 150\\text{ tins}. \\]\n\n3. **Third day:**  \n   He collects \\(50\\) tins fewer than on the second day:  \n   \\[\n   150 - 50 = 100\\text{ tins}. \\]\n\n4. **Total after three days:**  \n   \\[\n   50 + 150 + 100 = 300\\text{ tins}. \\]\n\n5. **Remaining days:**  \n   There are \\(7 - 3 = 4\\) days left in the week, and he collects the same number of tins each of those days. Let \\(x\\) be the number of tins collected per remaining day. The total for the week must be \\(500\\) tins, so  \n   \\[\n   300 + 4x = 500. \\]\n\n6. **Solve for \\(x\\):**  \n   \\[\n   4x = 500 - 300 = 200 \\quad\\Longrightarrow\\quad x = \\frac{200}{4} = 50. \\]\n\nThus, on each of the remaining four days James collects **50 tins**. ---\n\n**Answer:** He collected **50 tins per day** on each of the remaining days of the week.",
+    "stats": {
+      "teacher_mean_logprob": -0.11515453000274484,
+      "teacher_total_logprob": -58.15303765138614,
+      "length_original": 1075,
+      "length_filtered": 1048
+    }
+  },
+  {
+    "prompt": "Don throws 3 darts.  One is a bullseye worth 50 points.  One completely missed the target, so received no points. The third was worth half the points of the bullseye.  What is the final score from these 3 throws?",
+    "full_teacher_response": "<reasoning>\nThe problem describes three dart throws:\n\n1. **Bullseye** – worth **50 points**.  \n2. **Miss** – worth **0 points**.  \n3. **Half‑bullseye** – worth half of the bullseye’s value:  \n   \\[\n   \\frac{1}{2}\\times 50 = 25 \\text{ points}.\n   \\]\n\nTo find the final score, add the points from all three throws:\n\n\\[\n50 + 0 + 25 = 75.\n\\]\n\nThus, the total score from the three throws is **75 points**.\n</reasoning>\n\n**Answer:** 75 points.",
+    "filtered_response": "<reasoning>\nThe problem describes three dart throws:\n\n1. **Bullseye** – worth **50 points**. 2. **Miss** – worth **0 points**. 3. **Half‑bullseye** – worth half of the bullseye’s value:  \n   \\[\n   \\frac{1}{2}\\times 50 = 25 \\text{ points}. \\]\n\nTo find the final score, add the points from all three throws:\n\n\\[\n50 + 0 + 25 = 75. \\]\n\nThus, the total score from the three throws is **75 points**. </reasoning>\n\n**Answer:** 75 points.",
+    "stats": {
+      "teacher_mean_logprob": -0.12414844231771655,
+      "teacher_total_logprob": -23.588204040366143,
+      "length_original": 437,
+      "length_filtered": 430
+    }
+  },
+  {
+    "prompt": "TreQuan is throwing rocks in the river and he notices that the bigger the rock, the wider the splash. Pebbles make a splash that is a 1/4 meter wide. Rocks make a splash that is 1/2 a meter wide, and boulders create a splash that is 2 meters wide. If he tosses 6 pebbles, 3 rocks, and 2 boulders, what is the total width of the splashes he makes?",
+    "full_teacher_response": "<reasoning>\nFirst, determine the splash width contributed by each type of object.\n\n**Pebbles**  \n- Splash width per pebble = \\( \\frac14 \\) meter  \n- Number tossed = 6  \n- Total pebble splash = \\(6 \\times \\frac14 = \\frac{6}{4} = 1.5\\) meters  \n\n**Rocks**  \n- Splash width per rock = \\( \\frac12 \\) meter  \n- Number tossed = 3  \n- Total rock splash = \\(3 \\times \\frac12 = \\frac{3}{2} = 1.5\\) meters  \n\n**Boulders**  \n- Splash width per boulder = 2 meters  \n- Number tossed = 2  \n- Total boulder splash = \\(2 \\times 2 = 4\\) meters  \n\nNow add the contributions:\n\n\\[\n\\text{Total width} = 1.5 \\text{ m (pebbles)} + 1.5 \\text{ m (rocks)} + 4 \\text{ m (boulders)} = 7 \\text{ meters}.\n\\]\n\nThus, the combined width of all splashes is **7 meters**.\n</reasoning>\n\n**Answer:** 7 meters.",
+    "filtered_response": "<reasoning>\nFirst, determine the splash width contributed by each type of object. **Pebbles**  \n- Splash width per pebble = \\( \\frac14 \\) meter  \n- Number tossed = 6  \n- Total pebble splash = \\(6 \\times \\frac14 = \\frac{6}{4} = 1.5\\) meters  \n\n**Rocks**  \n- Splash width per rock = \\( \\frac12 \\) meter  \n- Number tossed = 3  \n- Total rock splash = \\(3 \\times \\frac12 = \\frac{3}{2} = 1.5\\) meters  \n\n**Boulders**  \n- Splash width per boulder = 2 meters  \n- Number tossed = 2  \n- Total boulder splash = \\(2 \\times 2 = 4\\) meters  \n\nNow add the contributions:\n\n\\[\n\\text{Total width} = 1.5 \\text{ m (pebbles)} + 1.5 \\text{ m (rocks)} + 4 \\text{ m (boulders)} = 7 \\text{ meters}. \\]\n\nThus, the combined width of all splashes is **7 meters**. </reasoning>\n\n**Answer:** 7 meters.",
+    "stats": {
+      "teacher_mean_logprob": -0.061995212053467495,
+      "teacher_total_logprob": -22.194285915141364,
+      "length_original": 772,
+      "length_filtered": 771
+    }
+  },
+  {
+    "prompt": "Pauly is making omelets for his family. There are three dozen eggs, and he plans to use them all. Each omelet requires 4 eggs. Including himself, there are 3 people. How many omelets does each person get?",
+    "full_teacher_response": "<reasoning>\n1. **Convert dozens to eggs**  \n   - One dozen equals 12 eggs.  \n   - Three dozen eggs = \\(3 \\times 12 = 36\\) eggs.\n\n2. **Determine how many omelets can be made**  \n   - Each omelet uses 4 eggs.  \n   - Number of omelets = \\(\\dfrac{36\\text{ eggs}}{4\\text{ eggs/omelet}} = 9\\) omelets.\n\n3. **Distribute the omelets equally among the people**  \n   - There are 3 people (Pauly plus two others).  \n   - Omelets per person = \\(\\dfrac{9\\text{ omelets}}{3\\text{ people}} = 3\\) omelets per person.\n\nThus, each person receives **3 omelets**.\n</reasoning>\n\n**Answer:** Each person gets 3 omelets.",
+    "filtered_response": "<reasoning>\n1. **Convert dozens to eggs**  \n   - One dozen equals 12 eggs. - Three dozen eggs = \\(3 \\times 12 = 36\\) eggs. 2. **Determine how many omelets can be made**  \n   - Each omelet uses 4 eggs. - Number of omelets = \\(\\dfrac{36\\text{ eggs}}{4\\text{ eggs/omelet}} = 9\\) omelets. 3. **Distribute the omelets equally among the people**  \n   - There are 3 people (Pauly plus two others). - Omelets per person = \\(\\dfrac{9\\text{ omelets}}{3\\text{ people}} = 3\\) omelets per person. Thus, each person receives **3 omelets**. </reasoning>\n\n**Answer:** Each person gets 3 omelets.",
+    "stats": {
+      "teacher_mean_logprob": -0.1314204630465383,
+      "teacher_total_logprob": -40.08324122919418,
+      "length_original": 597,
+      "length_filtered": 579
+    }
+  },
+  {
+    "prompt": "Thomas made 4 stacks of wooden blocks. The first stack was 7 blocks tall. The second stack was 3 blocks taller than the first. The third stack was 6 blocks shorter than the second stack, and the fourth stack was 10 blocks taller than the third stack. If the fifth stack has twice as many blocks as the second stack, how many blocks did Thomas use in all?",
+    "full_teacher_response": "<reasoning>\n1. Let the number of blocks in each stack be \\(S_1, S_2, S_3, S_4, S_5\\).\n\n2. The first stack is given:\n\\[\nS_1 = 7.\n\\]\n\n3. The second stack is 3 blocks taller than the first:\n\\[\nS_2 = S_1 + 3 = 7 + 3 = 10.\n\\]\n\n4. The third stack is 6 blocks shorter than the second:\n\\[\nS_3 = S_2 - 6 = 10 - 6 = 4.\n\\]\n\n5. The fourth stack is 10 blocks taller than the third:\n\\[\nS_4 = S_3 + 10 = 4 + 10 = 14.\n\\]\n\n6. The fifth stack has twice as many blocks as the second:\n\\[\nS_5 = 2 \\times S_2 = 2 \\times 10 = 20.\n\\]\n\n7. Add all the stacks to find the total number of blocks used:\n\\[\n\\text{Total} = S_1 + S_2 + S_3 + S_4 + S_5\n            = 7 + 10 + 4 + 14 + 20\n            = 55.\n\\]\n\nThus, Thomas used **55 blocks** in all.\n</reasoning>\n\n**Answer:** 55 blocks.",
+    "filtered_response": "<reasoning>\n1. Let the number of blocks in each stack be \\(S_1, S_2, S_3, S_4, S_5\\). 2. The first stack is given:\n\\[\nS_1 = 7. \\]\n\n3. The second stack is 3 blocks taller than the first:\n\\[\nS_2 = S_1 + 3 = 7 + 3 = 10. \\]\n\n4. The third stack is 6 blocks shorter than the second:\n\\[\nS_3 = S_2 - 6 = 10 - 6 = 4. \\]\n\n5. The fourth stack is 10 blocks taller than the third:\n\\[\nS_4 = S_3 + 10 = 4 + 10 = 14. \\]\n\n6. The fifth stack has twice as many blocks as the second:\n\\[\nS_5 = 2 \\times S_2 = 2 \\times 10 = 20. \\]\n\n7. Add all the stacks to find the total number of blocks used:\n\\[\n\\text{Total} = S_1 + S_2 + S_3 + S_4 + S_5\n            = 7 + 10 + 4 + 14 + 20\n            = 55. \\]\n\nThus, Thomas used **55 blocks** in all. </reasoning>\n\n**Answer:** 55 blocks.",
+    "stats": {
+      "teacher_mean_logprob": -0.1048475337947414,
+      "teacher_total_logprob": -53.262547167728634,
+      "length_original": 753,
+      "length_filtered": 752
+    }
+  }
+]

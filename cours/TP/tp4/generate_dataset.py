@@ -21,6 +21,7 @@ import os
 import random
 import re
 import string
+import sys
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -31,6 +32,7 @@ from datasets import Dataset, load_dataset, load_from_disk
 from dotenv import load_dotenv
 
 load_dotenv()
+sys.stdout.reconfigure(line_buffering=True)
 
 # ---------------------------------------------------------------------------
 # Constants & defaults
