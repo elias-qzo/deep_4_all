@@ -1,4 +1,10 @@
 .venv
 saves/
 
- 
+*.pt
+*.safetensors
+*.bin
+cours/TP/tp4_projet_dasd/saves/
+my_data/*
+
+!my_data/dataset_info.json
