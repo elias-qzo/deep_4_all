@@ -300,3 +300,166 @@ Préparez votre rapport avec :
 ---
 
 *Basé sur le papier "Distribution-Aligned Sequence Distillation for Superior Long-CoT Reasoning" (Alibaba, 2026)*
+
+
+
+llamafactory-cli train \
+    --stage sft \
+    --do_train \
+    --model_name_or_path unsloth/Qwen3-4B-Instruct-2507-unsloth-bnb-4bit \
+    --dataset mon_dataset_dasd \
+    --dataset_dir data \
+    --template qwen \
+    --finetuning_type lora \
+    --lora_target all \
+    --output_dir saves/qwen_dasd/lora/sft \
+    --overwrite_cache \
+    --overwrite_output_dir \
+    --cutoff_len 2048 \
+    --preprocessing_num_workers 16 \
+    --per_device_train_batch_size 1 \
+    --gradient_accumulation_steps 8 \
+    --lr_scheduler_type cosine \
+    --logging_steps 10 \
+    --warmup_steps 20 \
+    --save_steps 100 \
+    --eval_steps 100 \
+    --learning_rate 1e-4 \
+    --num_train_epochs 3.0 \
+    --quantization_bit 4 \
+    --fp16
+
+
+
+
+Assurez-vous d'avoir cette structure avant de lancer les commandes :
+
+Plaintext
+.
+├── full_dasd_generator.py   # Script de génération (Stage 1 & 2)
+├── my_data/                  # Dossier contenant vos JSONs et config
+│   ├── dataset_info.json     # Votre fichier de configuration
+│   ├── stage1_low_temp.json  # (Généré à l'étape 1)
+│   └── stage2_high_temp.json # (Généré à l'étape 1)
+└── saves/                    # Dossier où seront sauvegardés les modèles
+1️⃣ Étape 1 : Génération du Dataset (Distillation)
+On génère 2000 exemples filtrés par l'algorithme DAS.
+
+Stage 1 : Basse température (Stable)
+
+Stage 2 : Haute température (Diversifié)
+
+Bash
+# Lancez le script et patientez (env. 30-45 min pour 2000 exemples)
+python full_dasd_generator.py
+
+# Une fois fini, déplacez les fichiers générés dans votre dossier de données
+```
+mv stage1_low_temp.json my_data/
+mv stage2_high_temp.json my_data/
+```
+
+Vérification : Assurez-vous que my_data/dataset_info.json contient bien les définitions pour dasd_stage1 et dasd_stage2.
+
+2️⃣ Étape 2 : Entraînement Stage 1 (Bases Solides)
+On entraîne le modèle de base sur les données à basse température pour lui apprendre la structure du raisonnement.
+
+Dataset : dasd_stage1
+
+Sortie : saves/qwen_dasd/stage1
+
+Bash
+llamafactory-cli train \
+    --stage sft \
+    --do_train \
+    --model_name_or_path unsloth/Qwen3-4B-Instruct-2507-unsloth-bnb-4bit \
+    --dataset dasd_stage1 \
+    --dataset_dir my_data \
+    --template qwen \
+    --finetuning_type lora \
+    --lora_target all \
+    --output_dir saves/qwen_dasd/stage1 \
+    --overwrite_cache \
+    --overwrite_output_dir \
+    --cutoff_len 1024 \
+    --preprocessing_num_workers 4 \
+    --per_device_train_batch_size 1 \
+    --gradient_accumulation_steps 4 \
+    --lr_scheduler_type cosine \
+    --logging_steps 10 \
+    --warmup_ratio 0.05 \
+    --learning_rate 2e-4 \
+    --num_train_epochs 3.0 \
+    --quantization_bit 4 \
+    --fp16
+3️⃣ Étape 3 : Entraînement Stage 2 (Raffinement)
+On reprend le modèle entraîné au Stage 1 et on l'affine sur les données complexes (Haute température).
+
+Dataset : dasd_stage2
+
+Checkpoint (Reprise) : saves/qwen_dasd/stage1
+
+Sortie Finale : saves/qwen_dasd/stage2_final
+
+Bash
+llamafactory-cli train \
+    --stage sft \
+    --do_train \
+    --model_name_or_path unsloth/Qwen3-4B-Instruct-2507-unsloth-bnb-4bit \
+    --dataset dasd_stage2 \
+    --dataset_dir my_data \
+    --template qwen \
+    --finetuning_type lora \
+    --lora_target all \
+    --checkpoint_dir saves/qwen_dasd/stage1 \
+    --output_dir saves/qwen_dasd/stage2_final \
+    --overwrite_cache \
+    --overwrite_output_dir \
+    --cutoff_len 1024 \
+    --preprocessing_num_workers 4 \
+    --per_device_train_batch_size 1 \
+    --gradient_accumulation_steps 4 \
+    --lr_scheduler_type cosine \
+    --logging_steps 10 \
+    --warmup_ratio 0.05 \
+    --learning_rate 1e-4 \
+    --num_train_epochs 3.0 \
+    --quantization_bit 4 \
+    --fp16
+(Notez que le learning_rate est légèrement réduit à 1e-4 pour ce raffinement).
+
+stage 2
+
+llamafactory-cli train \
+    --stage sft \
+    --do_train \
+    --model_name_or_path unsloth/Qwen3-4B-Instruct-2507-unsloth-bnb-4bit \
+    --adapter_name_or_path saves/qwen_dasd/stage1 \
+    --dataset dasd_stage2 \
+    --dataset_dir my_data \
+    --template qwen \
+    --finetuning_type lora \
+    --lora_target all \
+    --output_dir saves/qwen_dasd/stage2_final \
+    --overwrite_cache \
+    --overwrite_output_dir \
+    --cutoff_len 1024 \
+    --preprocessing_num_workers 4 \
+    --per_device_train_batch_size 1 \
+    --gradient_accumulation_steps 4 \
+    --lr_scheduler_type cosine \
+    --logging_steps 10 \
+    --warmup_ratio 0.05 \
+    --learning_rate 1e-4 \
+    --num_train_epochs 3.0 \
+    --quantization_bit 4 \
+    --fp16
+4️⃣ Étape 4 : Test Final (Chat)
+Discutez avec votre modèle final pour vérifier s'il utilise bien les balises <reasoning>.
+
+Bash
+llamafactory-cli chat \
+    --model_name_or_path unsloth/Qwen3-4B-Instruct-2507-unsloth-bnb-4bit \
+    --adapter_name_or_path saves/qwen_dasd/stage2_final \
+    --template qwen \
+    --quantization_bit 4

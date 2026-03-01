@@ -1,0 +1,19 @@
+{
+  "gsm8k_dasd": {
+    "file_name": "train_dasd_gsm8k.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations"
+    }
+  },
+  "dasd_stage1": {
+    "file_name": "stage1_low_temp.json",
+    "formatting": "sharegpt",
+    "columns": { "messages": "conversations" }
+  },
+  "dasd_stage2": {
+    "file_name": "stage2_high_temp.json",
+    "formatting": "sharegpt",
+    "columns": { "messages": "conversations" }
+  }
+}

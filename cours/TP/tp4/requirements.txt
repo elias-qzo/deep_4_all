@@ -1,3 +1,14 @@
-openai
+# requirements.txt
+torch
+transformers
+bitsandbytes
+accelerate
+peft
 datasets
-python-dotenv
+openai
+nltk
+scipy
+tiktoken
+sentencepiece
+protobuf
+llamafactory
