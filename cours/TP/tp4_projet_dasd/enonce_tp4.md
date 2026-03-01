@@ -428,6 +428,32 @@ llamafactory-cli train \
     --fp16
 (Notez que le learning_rate est légèrement réduit à 1e-4 pour ce raffinement).
 
+stage 2
+
+llamafactory-cli train \
+    --stage sft \
+    --do_train \
+    --model_name_or_path unsloth/Qwen3-4B-Instruct-2507-unsloth-bnb-4bit \
+    --adapter_name_or_path saves/qwen_dasd/stage1 \
+    --dataset dasd_stage2 \
+    --dataset_dir my_data \
+    --template qwen \
+    --finetuning_type lora \
+    --lora_target all \
+    --output_dir saves/qwen_dasd/stage2_final \
+    --overwrite_cache \
+    --overwrite_output_dir \
+    --cutoff_len 1024 \
+    --preprocessing_num_workers 4 \
+    --per_device_train_batch_size 1 \
+    --gradient_accumulation_steps 4 \
+    --lr_scheduler_type cosine \
+    --logging_steps 10 \
+    --warmup_ratio 0.05 \
+    --learning_rate 1e-4 \
+    --num_train_epochs 3.0 \
+    --quantization_bit 4 \
+    --fp16
 4️⃣ Étape 4 : Test Final (Chat)
 Discutez avec votre modèle final pour vérifier s'il utilise bien les balises <reasoning>.
 
